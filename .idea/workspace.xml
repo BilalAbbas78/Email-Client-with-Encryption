@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Inbox GUI Set">
-      <change afterPath="$PROJECT_DIR$/root.cer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FrmComposeMail.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
+      <change afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +45,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Syed Bilal Abbas/IdeaProjects/Email Client with Encryption",
+    "last_opened_file_path": "C:/Users/Syed Bilal Abbas/IdeaProjects/Email Client with Encryption/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,8 +63,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Syed Bilal Abbas\IdeaProjects\Email Client with Encryption" />
       <recent name="C:\Users\Syed Bilal Abbas\IdeaProjects\Email Client with Encryption\src" />
+      <recent name="C:\Users\Syed Bilal Abbas\IdeaProjects\Email Client with Encryption" />
       <recent name="C:\Users\Syed Bilal Abbas\IdeaProjects\Email Client with Encryption\src\ServerClient" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -99,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1661610286301</updated>
       <workItem from="1661610287610" duration="12002000" />
-      <workItem from="1661693617562" duration="8132000" />
+      <workItem from="1661693617562" duration="11612000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -122,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661631911840</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="So far so good">
+      <created>1661772348996</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1661772348996</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +146,7 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Tabs added" />
     <MESSAGE value="Inbox GUI Set" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inbox GUI Set" />
+    <MESSAGE value="So far so good" />
+    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
   </component>
 </project>
