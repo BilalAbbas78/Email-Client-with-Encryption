@@ -79,7 +79,7 @@ public class EmailReceiver {
                 Address[] fromAddress = message.getFrom();
                 String from = fromAddress[0].toString();
                 String subject = message.getSubject();
-                String sentDate = message.getSentDate().toString();
+                String sentDate = String.valueOf(message.getSentDate());
 
                 String contentType = message.getContentType();
                 String messageContent = "";
