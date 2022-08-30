@@ -41,7 +41,7 @@ public class MyCertificateGenerator {
         Date toDate = parser.parse(to);
 
         // generate a key pair
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(1024, new SecureRandom());
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
@@ -64,7 +64,7 @@ public class MyCertificateGenerator {
 
         // finally, sign the certificate with the private key of the same KeyPair
         privateKey = keyPair.getPrivate();
-        return certGen.generate(keyPair.getPrivate(), "BC");
+        return certGen.generate(keyPair.getPrivate());
     }
 
     public static void importCertificate(String certificateFilePath, String certificateFileName) throws FileNotFoundException, CertificateException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException {
@@ -135,7 +135,7 @@ public class MyCertificateGenerator {
         Date toDate = parser.parse(to);
 
         // generate a key pair
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(1024, new SecureRandom());
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
@@ -158,7 +158,7 @@ public class MyCertificateGenerator {
 
         // finally, sign the certificate with the private key of the same KeyPair
         privateKey = keyPair.getPrivate();
-        return certGen.generate(issuerPrivateKey, "BC");
+        return certGen.generate(issuerPrivateKey);
     }
 
     public static PublicKey loadPublicKey(File selectedFile) {

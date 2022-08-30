@@ -1,8 +1,20 @@
+import org.apache.commons.io.IOUtils;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
 import javax.swing.*;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Properties;
 
 class MyInbox {
@@ -73,9 +85,17 @@ public class EmailReceiver {
             Message[] messages = folderInbox.getMessages();
             inbox.clear();
 
-            for (int i = 0; i < messages.length; i++) {
+            Statement statement = FrmDashboard.connection.createStatement();
+            statement.execute("SELECT privateKey FROM ImportedClientCertificates WHERE clientName = '" + FrmLogin.username + "'");
+            ResultSet resultSet = statement.getResultSet();
+            PrivateKey privateKey = null;
+            if (resultSet.next()) {
+                privateKey = MyCertificateGenerator.getPrivateKeyFromString(resultSet.getString("privateKey"));
+                System.out.println("Private key found");
+            }
+
+            for (Message message : messages) {
                 String attachment = "No";
-                Message message = messages[i];
                 Address[] fromAddress = message.getFrom();
                 String from = fromAddress[0].toString();
                 String subject = message.getSubject();
@@ -97,21 +117,43 @@ public class EmailReceiver {
                         part = (MimeBodyPart) multiPart.getBodyPart(partCount);
                         if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
                             // this part is attachment
-                            String fileName = part.getFileName();
+
+
+//                            System.out.println(fileName);
+//                            System.out.println(part.getInputStream());
+
+                            InputStream fileNme = part.getInputStream();
+                            StringWriter writer = new StringWriter();
+                            IOUtils.copy(fileNme, writer, "UTF-8");
+                            String theString = writer.toString();
+                            System.out.println("Text: " + theString);
+
+                            String[] words = theString.split("\\|");
+
+                            System.out.println("words[0]: " + words[0]);
+
+//                            System.out.println(privateKey.getEncoded());
+
+                            String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
+                            System.out.println("RSA Decrypted: " + RSADecrypted);
+                            System.out.println("w1 " + words[1]);
+
+                            // decode the base64 encoded string
+                            byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
+
+                            String AESDecrypted = AESGCMEncryption.decrypt(words[1], new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+
+                            messageContent = AESDecrypted;
 
 
 
-                            attachFiles += fileName + ", ";
-
-//                            part.saveFile("D:/Attachments" + File.separator + part.getFileName());
 
 
-//                            part.saveFile("D:/" + File.separator + fileName);
-//                            part.saveFile("D:/Attachments/" + part.getFileName().replaceFirst("D:/", ""));
+                            attachFiles += part.getFileName() + ", ";
 
                         } else {
                             // this part may be the message content
-                            messageContent = part.getContent().toString();
+//                            messageContent = part.getContent().toString();
                         }
                     }
 
@@ -126,9 +168,7 @@ public class EmailReceiver {
                 }
 
 
-
                 inbox.add(new MyInbox(from, sentDate, subject, messageContent, attachment, part, message));
-
 
 
 //            for (Message msg : messages) {
@@ -196,6 +236,8 @@ public class EmailReceiver {
         }
         catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

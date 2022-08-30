@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
-      <change afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Email send with encryption RSA + AES">
+      <change afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AESGCMEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyCertificateGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,29 +41,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Syed Bilal Abbas/IdeaProjects/Email Client with Encryption/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last.edited.regexp&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Syed Bilal Abbas/IdeaProjects/Email Client with Encryption/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Syed Bilal Abbas\IdeaProjects\Email Client with Encryption\src" />
@@ -71,9 +75,37 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.FrmDashboard">
+    <configuration name="AESGCMEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AESGCMEncryption" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailContent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="EmailContent" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FrmDashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmDashboard" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FrmLogin" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RSAEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RSAEncryption" />
       <module name="Email Client with Encryption" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -82,6 +114,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmDashboard" />
+        <item itemvalue="Application.EmailContent" />
+        <item itemvalue="Application.FrmLogin" />
+        <item itemvalue="Application.RSAEncryption" />
+        <item itemvalue="Application.AESGCMEncryption" />
       </list>
     </recent_temporary>
   </component>
@@ -94,7 +130,10 @@
       <option name="presentableId" value="Default" />
       <updated>1661610286301</updated>
       <workItem from="1661610287610" duration="12002000" />
-      <workItem from="1661693617562" duration="11612000" />
+      <workItem from="1661693617562" duration="14538000" />
+      <workItem from="1661800895682" duration="5066000" />
+      <workItem from="1661829783127" duration="1294000" />
+      <workItem from="1661836693590" duration="2066000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -124,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661772348996</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Email send with encryption RSA + AES">
+      <created>1661777659007</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661777659007</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +193,17 @@
     <MESSAGE value="Tabs added" />
     <MESSAGE value="Inbox GUI Set" />
     <MESSAGE value="So far so good" />
-    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
+    <MESSAGE value="Email send with encryption RSA + AES" />
+    <option name="LAST_COMMIT_MESSAGE" value="Email send with encryption RSA + AES" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

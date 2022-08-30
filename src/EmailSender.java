@@ -70,6 +70,11 @@ public class EmailSender {
         // Part two is attachment
         messageBodyPart = new MimeBodyPart();
 
+        EmailContent emailContent = new EmailContent(subject, msg, receiver, new java.util.Date());
+
+
+
+
         String AESEncryptedString = AESGCMEncryption.encrypt(msg);
         SecretKey AESEncryptionKey = AESGCMEncryption.key;
         PublicKey publicKey = null;

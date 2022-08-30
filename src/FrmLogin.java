@@ -44,18 +44,23 @@ public class FrmLogin extends JFrame {
         add(btnLogin);
 
         btnLogin.addActionListener(e -> {
-            login(txtUsername.getText(), txtPassword.getText());
+            try {
+                login(txtUsername.getText(), txtPassword.getText());
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password) throws ClassNotFoundException {
+        FrmDashboard.connection = GlobalClass.connect();
         FrmLogin.username = username;
         FrmLogin.password = password;
         EmailReceiver.downloadEmails("imap", "localhost", "143", username, password);
         if (isValid) {
-            JOptionPane.showMessageDialog(null, "Login Successful");
-//            new FrmInbox().setVisible(true);
-//            setVisible(false);
+//            JOptionPane.showMessageDialog(null, "Login Successful");
+            new FrmDashboard().setVisible(true);
+            setVisible(false);
         }
         else {
 //            JOptionPane.showMessageDialog(null, "Login Failed");
