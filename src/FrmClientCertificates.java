@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FrmClientCertificates extends JFrame {
     Connection connection;
     FrmClientCertificates() throws SQLException, ClassNotFoundException {
-        connection = GlobalClass.connect();
+        connection = FrmDashboard.connection;
         setTitle("Client Certificates");
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -94,6 +94,7 @@ public class FrmClientCertificates extends JFrame {
                     Statement statement = connection.createStatement();
                     String sql = "INSERT INTO ClientCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "')";
                     statement.executeUpdate(sql);
+                    statement.close();
                 }
             } catch (SQLException | CertificateEncodingException ex) {
                 throw new RuntimeException(ex);
@@ -113,6 +114,7 @@ public class FrmClientCertificates extends JFrame {
                     resultSet.getString("ClientName")
             });
         }
+        statement.close();
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {

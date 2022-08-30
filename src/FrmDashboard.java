@@ -192,6 +192,14 @@ public class FrmDashboard extends JFrame {
                 JOptionPane.showMessageDialog(null, "Private Key not loaded");
         });
 
+        btnManageClientCertificates.addActionListener(e -> {
+            try {
+                new FrmClientCertificates().setVisible(true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         return pnlInbox;
     }
 

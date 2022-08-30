@@ -103,21 +103,21 @@ public class RSAEncryption {
         return new String(decryptedMessage);
     }
 
-    public static void main(String[] args) throws Exception {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(1024, new SecureRandom());
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-
-        PublicKey publicKey = keyPair.getPublic();
-        PrivateKey privateKey = keyPair.getPrivate();
-
-        String message = "Hello World";
-        String encryptedMessage = encrypt(message, publicKey);
-        String decryptedMessage = decrypt(encryptedMessage, privateKey);
-        System.out.println("Message = " + message);
-        System.out.println("Encrypted Message = " + encryptedMessage);
-        System.out.println("Decrypted Message = " + decryptedMessage);
-
-
-    }
+//    public static void main(String[] args) throws Exception {
+//        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+//        keyPairGenerator.initialize(1024, new SecureRandom());
+//        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+//
+//        PublicKey publicKey = keyPair.getPublic();
+//        PrivateKey privateKey = keyPair.getPrivate();
+//
+//        String message = "Hello World";
+//        String encryptedMessage = encrypt(message, publicKey);
+//        String decryptedMessage = decrypt(encryptedMessage, privateKey);
+//        System.out.println("Message = " + message);
+//        System.out.println("Encrypted Message = " + encryptedMessage);
+//        System.out.println("Decrypted Message = " + decryptedMessage);
+//
+//
+//    }
 }

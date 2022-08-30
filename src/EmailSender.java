@@ -80,7 +80,7 @@ public class EmailSender {
         PublicKey publicKey = null;
 
         Statement statement = FrmDashboard.connection.createStatement();
-        statement.execute("SELECT certificate FROM SelfCertificates WHERE clientName = '" + receiver + "'");
+        statement.execute("SELECT certificate FROM ClientCertificates WHERE clientName = '" + receiver + "'");
         ResultSet resultSet = statement.getResultSet();
 
         if (resultSet.next()) {
