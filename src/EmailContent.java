@@ -4,7 +4,8 @@ import java.util.Date;
 public class EmailContent implements Serializable {
 //    static byte[] byteArray;
 
-    String subject, message, from, date;
+    String subject, message, from;
+    Date date;
     EmailContent(String subject, String message, String from, Date date){
         this.subject = subject;
         this.message = message;
@@ -43,8 +44,8 @@ public class EmailContent implements Serializable {
 
     }
 
-    static void deserialize(byte[] bytesArray){
-        EmailContent object1;
+    static EmailContent deserialize(byte[] bytesArray){
+        EmailContent object1 = null;
 
         // Deserialization
         try
@@ -58,19 +59,17 @@ public class EmailContent implements Serializable {
 
             in.close();
 
-            System.out.println("Object has been deserialized ");
-            System.out.println("a = " + object1.message);
-            System.out.println("b = " + object1.subject);
         }
 
         catch(IOException | ClassNotFoundException ex)
         {
             System.out.println("IOException is caught");
         }
+        return object1;
     }
 
     public static void main(String[] args) {
-        EmailContent emailContent = new EmailContent("Subject", "Hello msg", "a", "b");
+        EmailContent emailContent = new EmailContent("Subject", "Hello msg", "a", new Date());
         EmailContent.deserialize(EmailContent.serialize(emailContent));
     }
 

@@ -107,6 +107,8 @@ public class EmailReceiver {
                 // store attachment file name, separated by comma
                 String attachFiles = "";
 
+                EmailContent emailContent = null;
+
                 MimeBodyPart part = null;
                 if (contentType.contains("multipart")) {
                     attachment = "Yes";
@@ -140,10 +142,12 @@ public class EmailReceiver {
 
                             // decode the base64 encoded string
                             byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
+                            byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
 
-                            String AESDecrypted = AESGCMEncryption.decrypt(words[1], new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+                            byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+                            emailContent = EmailContent.deserialize(AESDecrypted);
 
-                            messageContent = AESDecrypted;
+                            messageContent = "";
 
 
 
@@ -167,62 +171,10 @@ public class EmailReceiver {
                     }
                 }
 
-
-                inbox.add(new MyInbox(from, sentDate, subject, messageContent, attachment, part, message));
-
-
-//            for (Message msg : messages) {
-//                Address[] fromAddress = msg.getFrom();
-//                String from = fromAddress[0].toString();
-//                String subject = msg.getSubject();
-//                String toList = parseAddresses(msg
-//                        .getRecipients(RecipientType.TO));
-//                String ccList = parseAddresses(msg
-//                        .getRecipients(RecipientType.CC));
-//                String sentDate = msg.getSentDate().toString();
-//
-//                String contentType = msg.getContentType();
-//                String messageContent = "";
-//
-////                if (contentType.contains("text/plain")
-////                        || contentType.contains("text/html")) {
-//                try {
-//                    Object content = msg.getContent();
-//                    if (content != null) {
-//                        messageContent = content.toString();
-//                        inbox.add(new MyInbox(from, sentDate, subject, messageContent));
-//                    }
-//                } catch (Exception ex) {
-//                    messageContent = "[Error downloading content]";
-//                    ex.printStackTrace();
-//                }
-////
-//
-//
-//                if (contentType.contains("multipart")) {
-//                    // this message may contain attachment
-//                    Multipart multiPart = (Multipart) msg.getContent();
-//
-//                    for (int i = 0; i < multiPart.getCount(); i++) {
-//                        MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(i);
-//                        if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
-//                            part.saveFile("D:/Attachments/" + part.getFileName().replaceFirst("D:/", ""));
-//                        }
-//                    }
-//                }
-
-
-                // print out details of each message
-//                System.out.println("Message #" + (i + 1) + ":");
-//                System.out.println("\t From: " + from);
-//                System.out.println("\t To: " + toList);
-//                System.out.println("\t CC: " + ccList);
-//                System.out.println("\t Subject: " + subject);
-//                System.out.println("\t Sent Date: " + sentDate);
-//                System.out.println("\t Message: " + messageContent);
+                if (emailContent != null) {
+                    inbox.add(new MyInbox(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message, attachment, part, message));
+                }
             }
-
-            // disconnect
 //            folderInbox.close(false);
 //            store.close();
         } catch (NoSuchProviderException ex) {

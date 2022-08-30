@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Email send with encryption RSA + AES">
-      <change afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Email Content class added for Serialization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AESGCMEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MyCertificateGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +130,8 @@
       <workItem from="1661693617562" duration="14538000" />
       <workItem from="1661800895682" duration="5066000" />
       <workItem from="1661829783127" duration="1294000" />
-      <workItem from="1661836693590" duration="2066000" />
+      <workItem from="1661836693590" duration="3037000" />
+      <workItem from="1661879545970" duration="2361000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -170,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661777659007</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Email Content class added for Serialization">
+      <created>1661878727482</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661878727482</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +199,8 @@
     <MESSAGE value="Inbox GUI Set" />
     <MESSAGE value="So far so good" />
     <MESSAGE value="Email send with encryption RSA + AES" />
-    <option name="LAST_COMMIT_MESSAGE" value="Email send with encryption RSA + AES" />
+    <MESSAGE value="Email Content class added for Serialization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Email Content class added for Serialization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

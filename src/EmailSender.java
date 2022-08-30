@@ -71,11 +71,11 @@ public class EmailSender {
         messageBodyPart = new MimeBodyPart();
 
         EmailContent emailContent = new EmailContent(subject, msg, receiver, new java.util.Date());
+        byte[] emailBytes = EmailContent.serialize(emailContent);
+
+        String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
 
 
-
-
-        String AESEncryptedString = AESGCMEncryption.encrypt(msg);
         SecretKey AESEncryptionKey = AESGCMEncryption.key;
         PublicKey publicKey = null;
 

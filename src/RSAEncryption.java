@@ -1,4 +1,5 @@
 import javax.crypto.Cipher;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -77,13 +78,19 @@ public class RSAEncryption {
 //    }
 
     public static String encrypt(String message, PublicKey publicKey) throws Exception {
-        //Encrypt message
-        Cipher encryptionCipher = Cipher.getInstance("RSA");
-        encryptionCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        byte[] encryptedMessage =
-                encryptionCipher.doFinal(message.getBytes());
-        //        System.out.println("encrypted message = " + encryption);
-        return Base64.getEncoder().encodeToString(encryptedMessage);
+        if (publicKey == null){
+            JOptionPane.showMessageDialog(null, "Receiver's certificate is not found");
+            return null;
+        }
+        else {
+            //Encrypt message
+            Cipher encryptionCipher = Cipher.getInstance("RSA");
+            encryptionCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            byte[] encryptedMessage =
+                    encryptionCipher.doFinal(message.getBytes());
+            //        System.out.println("encrypted message = " + encryption);
+            return Base64.getEncoder().encodeToString(encryptedMessage);
+        }
     }
 
     public static String decrypt(String encryptedMessage, PrivateKey privateKey) throws Exception {
