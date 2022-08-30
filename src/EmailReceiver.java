@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Properties;
 
 class MyInbox {
@@ -86,12 +87,14 @@ public class EmailReceiver {
             inbox.clear();
 
             Statement statement = FrmDashboard.connection.createStatement();
-            statement.execute("SELECT privateKey FROM ImportedClientCertificates WHERE clientName = '" + FrmLogin.username + "'");
+            statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
             ResultSet resultSet = statement.getResultSet();
             PrivateKey privateKey = null;
             if (resultSet.next()) {
-                privateKey = MyCertificateGenerator.getPrivateKeyFromString(resultSet.getString("privateKey"));
-                System.out.println("Private key found");
+                if (!Objects.equals(resultSet.getString("privateKey"), "")) {
+                    privateKey = MyCertificateGenerator.getPrivateKeyFromString(resultSet.getString("privateKey"));
+                    System.out.println("Private key found");
+                }
             }
 
             for (Message message : messages) {

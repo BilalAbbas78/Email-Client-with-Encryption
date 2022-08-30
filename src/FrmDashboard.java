@@ -119,9 +119,21 @@ public class FrmDashboard extends JFrame {
         lblSubject.setBounds(10, 410, 1000, 30);
         pnlInbox.add(lblSubject);
 
-        JButton btnLoadClientCertificate = new JButton("Load Client Certificate");
-        btnLoadClientCertificate.setBounds(500, 410, 200, 30);
-        pnlInbox.add(btnLoadClientCertificate);
+//        JButton btnLoadClientCertificate = new JButton("Load Client Certificate");
+//        btnLoadClientCertificate.setBounds(500, 410, 200, 30);
+//        pnlInbox.add(btnLoadClientCertificate);
+
+        JButton btnImportOwnCertificate = new JButton("Import Own Certificate");
+        btnImportOwnCertificate.setBounds(500, 410, 200, 30);
+        pnlInbox.add(btnImportOwnCertificate);
+
+        JButton btnImportOwnPrivateKey = new JButton("Import Own Private Key");
+        btnImportOwnPrivateKey.setBounds(710, 410, 200, 30);
+        pnlInbox.add(btnImportOwnPrivateKey);
+
+        JButton btnManageClientCertificates = new JButton("Manage Client Certificates");
+        btnManageClientCertificates.setBounds(920, 410, 200, 30);
+        pnlInbox.add(btnManageClientCertificates);
 
         JTextArea txtMessage = new JTextArea();
         txtMessage.setLineWrap(true);
@@ -141,7 +153,7 @@ public class FrmDashboard extends JFrame {
             }
         });
 
-        btnLoadClientCertificate.addActionListener(e -> {
+        btnImportOwnCertificate.addActionListener(e -> {
             X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
             if (certificate != null){
                 try {
@@ -150,11 +162,9 @@ public class FrmDashboard extends JFrame {
                         return;
                     }
                     else {
-                        PrivateKey privateKey = MyCertificateGenerator.privateKey;
                         Statement statement = connection.createStatement();
-                        String sql = "INSERT INTO ImportedClientCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "')";
+                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
                         statement.executeUpdate(sql);
-//                        JOptionPane.showMessageDialog(null, "Certificate is inserted into the database");
                     }
                 } catch (SQLException | CertificateEncodingException ex) {
                     throw new RuntimeException(ex);
@@ -163,6 +173,23 @@ public class FrmDashboard extends JFrame {
             }
             else
                 JOptionPane.showMessageDialog(null, "Certificate not loaded");
+        });
+
+        btnImportOwnPrivateKey.addActionListener(e -> {
+            PrivateKey privateKey = MyCertificateGenerator.loadPrivateKeyFromFile();
+            if (privateKey != null){
+                try {
+                        Statement statement = connection.createStatement();
+                        String sql = "UPDATE SelfCertificates SET PrivateKey = '" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "' WHERE clientName = '" + FrmLogin.username + "'";
+                        statement.executeUpdate(sql);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Certificate is not inserted into the database");
+                    throw new RuntimeException(ex);
+                }
+                JOptionPane.showMessageDialog(null, "Private Key loaded successfully");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Private Key not loaded");
         });
 
         return pnlInbox;
@@ -177,7 +204,7 @@ public class FrmDashboard extends JFrame {
 
     boolean isCertificatePresentInDB(X509Certificate certificate) throws SQLException, CertificateEncodingException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM ImportedClientCertificates WHERE certificate = '" + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "'");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM SelfCertificates WHERE certificate = '" + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "'");
         boolean isPresent = false;
         while (resultSet.next()) {
             isPresent = true;

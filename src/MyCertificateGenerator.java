@@ -110,13 +110,34 @@ public class MyCertificateGenerator {
             File selectedFilePrivateKey = fileChooser.getSelectedFile();
             try {
 
-//                System.out.println();
-                String content = Files.readString(Path.of(selectedFile.getPath().replace(".cer", "PrivateKey.txt")), StandardCharsets.US_ASCII);
-                privateKey = getPrivateKeyFromString(content);
-                System.out.println(java.util.Base64.getEncoder().encodeToString(privateKey.getEncoded()));
-//                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
+//                String content = Files.readString(Path.of(selectedFile.getPath().replace(".cer", "PrivateKey.txt")), StandardCharsets.US_ASCII);
+//                privateKey = getPrivateKeyFromString(content);
 
                 return MyCertificateGenerator.loadCertificate(selectedFile);
+//                JOptionPane.showMessageDialog(null, "Certificate loaded");
+//                    System.out.println(certificate);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static PrivateKey loadPrivateKeyFromFile() {
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "\\Desktop");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Private Key", "txt");
+        fileChooser.addChoosableFileFilter(filter);
+        int result = fileChooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            File selectedFilePrivateKey = fileChooser.getSelectedFile();
+            try {
+
+//                String content = Files.readString(Path.of(selectedFile.getPath().replace(".cer", "PrivateKey.txt")), StandardCharsets.US_ASCII);
+//                privateKey = getPrivateKeyFromString(content);
+
+                return loadPrivateKey(selectedFile);
 //                JOptionPane.showMessageDialog(null, "Certificate loaded");
 //                    System.out.println(certificate);
             } catch (Exception e1) {
@@ -171,10 +192,16 @@ public class MyCertificateGenerator {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
-//    public void addBouncyCastleAsSecurityProvider() {
-//        Security.addProvider(new BouncyCastleProvider());
-//    }
+    public static PrivateKey loadPrivateKey(File selectedFile) {
+        try {
+            String content = Files.readString(Path.of(selectedFile.getPath()), StandardCharsets.US_ASCII);
+            return getPrivateKeyFromString(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

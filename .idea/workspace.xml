@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Email Content class added for Serialization">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Serialization applied">
+      <change afterPath="$PROJECT_DIR$/src/FrmClientCertificates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AESGCMEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyCertificateGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDashboard">
+  <component name="RunManager">
     <configuration name="AESGCMEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AESGCMEncryption" />
       <module name="Email Client with Encryption" />
@@ -110,11 +111,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AESGCMEncryption" />
         <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.EmailContent" />
         <item itemvalue="Application.FrmLogin" />
         <item itemvalue="Application.RSAEncryption" />
-        <item itemvalue="Application.AESGCMEncryption" />
       </list>
     </recent_temporary>
   </component>
@@ -131,7 +132,8 @@
       <workItem from="1661800895682" duration="5066000" />
       <workItem from="1661829783127" duration="1294000" />
       <workItem from="1661836693590" duration="3037000" />
-      <workItem from="1661879545970" duration="2361000" />
+      <workItem from="1661879545970" duration="6079000" />
+      <workItem from="1661885654308" duration="1745000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -175,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661878727482</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Serialization applied">
+      <created>1661881982364</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661881982364</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +209,8 @@
     <MESSAGE value="So far so good" />
     <MESSAGE value="Email send with encryption RSA + AES" />
     <MESSAGE value="Email Content class added for Serialization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Email Content class added for Serialization" />
+    <MESSAGE value="Serialization applied" />
+    <option name="LAST_COMMIT_MESSAGE" value="Serialization applied" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
