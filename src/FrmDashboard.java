@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.sql.Connection;
@@ -103,20 +104,34 @@ public class FrmDashboard extends JFrame {
         ActionListener listenerImportOwnCertificate = e -> {
             X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
             if (certificate != null){
-                try {
-                    if (isCertificatePresentInDB(certificate)){
-                        JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
-                        return;
+                if (certificate.getSubjectDN().getName().replaceFirst("DNQ=", "").equals(FrmLogin.username)) {
+                    try {
+                        if (isCertificateSignedByRoot(certificate, GlobalClass.rootCertificate.getPublicKey())) {
+                            try {
+                                if (isCertificatePresentInDB(certificate)){
+                                    JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
+                                    return;
+                                }
+                                else {
+                                    Statement statement = connection.createStatement();
+                                    String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
+                                    statement.execute(sql);
+                                }
+                            } catch (SQLException | CertificateEncodingException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Certificate is not signed by the root certificate");
+                        }
+                    } catch (SQLException | CertificateEncodingException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    else {
-                        Statement statement = connection.createStatement();
-                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
-                        statement.execute(sql);
-                    }
-                } catch (SQLException | CertificateEncodingException ex) {
-                    throw new RuntimeException(ex);
                 }
-                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
+                else {
+                    JOptionPane.showMessageDialog(null, "Certificate is not issued to you");
+                }
             }
             else
                 JOptionPane.showMessageDialog(null, "Certificate not loaded");
@@ -299,6 +314,17 @@ public class FrmDashboard extends JFrame {
             isPresent = true;
         }
         return isPresent;
+    }
+
+    boolean isCertificateSignedByRoot(X509Certificate certificate, PublicKey publicKey) throws SQLException, CertificateEncodingException {
+        boolean isSigned = false;
+            try {
+                certificate.verify(publicKey);
+                isSigned = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        return isSigned;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

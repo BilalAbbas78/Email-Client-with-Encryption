@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Emails inserted in Database">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Retreive unread only messages from Server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +139,7 @@
       <workItem from="1661930917283" duration="4332000" />
       <workItem from="1661962190099" duration="1661000" />
       <workItem from="1661971955786" duration="4702000" />
-      <workItem from="1661976699483" duration="312000" />
+      <workItem from="1661976699483" duration="964000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -235,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661936462060</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Retreive unread only messages from Server">
+      <created>1661977168079</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1661977168079</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +271,8 @@
     <MESSAGE value="View Message Form added" />
     <MESSAGE value="View Message with Encryption added" />
     <MESSAGE value="Emails inserted in Database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Emails inserted in Database" />
+    <MESSAGE value="Retreive unread only messages from Server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Retreive unread only messages from Server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

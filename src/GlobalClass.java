@@ -9,16 +9,15 @@ import java.sql.SQLException;
 
 public class GlobalClass {
     public static Connection connection;
-//    public static X509Certificate rootCertificate;
+    public static X509Certificate rootCertificate;
     public static String receiver;
     public static Connection connect() throws ClassNotFoundException {
-//        rootCertificate = null;
-//        try {
-//            rootCertificate = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(new FileInputStream("root.cer"));
-//            System.out.println(rootCertificate.getIssuerX500Principal().getName());
-//        } catch (FileNotFoundException | CertificateException e) {
-//            throw new RuntimeException(e);
-//        }
+        rootCertificate = null;
+        try {
+            rootCertificate = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(new FileInputStream("root.cer"));
+        } catch (FileNotFoundException | CertificateException e) {
+            throw new RuntimeException(e);
+        }
         connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
