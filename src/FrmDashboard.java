@@ -246,7 +246,7 @@ public class FrmDashboard extends JFrame {
                     frmViewMessage.setVisible(true);
 
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Private Key may not be available");
+                    JOptionPane.showMessageDialog(null, "Private Key may not be available or is incorrect");
                 }
             }
         });

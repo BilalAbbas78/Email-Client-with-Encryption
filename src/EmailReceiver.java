@@ -22,11 +22,10 @@ class MyInbox {
     String from, date, subject, message, attachment;
     Message message1;
     MimeBodyPart part;
-    MyInbox(String from, String date, String subject, String attachment, MimeBodyPart part) {
+    MyInbox(String from, String date, String subject, MimeBodyPart part) {
         this.from = from;
         this.date = date;
         this.subject = subject;
-        this.attachment = attachment;
         this.part = part;
     }
 }
@@ -85,9 +84,9 @@ public class EmailReceiver {
             inbox.clear();
 
             for (Message message : messages) {
-                String attachment = "No";
+//                String attachment = "No";
                 Address[] fromAddress = message.getFrom();
-                String from = fromAddress[0].toString();
+                String sender = fromAddress[0].toString();
                 String subject = message.getSubject();
                 String sentDate = String.valueOf(message.getSentDate());
 
@@ -101,7 +100,7 @@ public class EmailReceiver {
 
                 MimeBodyPart part = null;
                 if (contentType.contains("multipart")) {
-                    attachment = "Yes";
+//                    attachment = "Yes";
                     // content may contain attachments
                     Multipart multiPart = (Multipart) message.getContent();
                     int numberOfParts = multiPart.getCount();
@@ -141,7 +140,19 @@ public class EmailReceiver {
                 }
 
 //                if (emailContent != null) {
-                    inbox.add(new MyInbox(from, sentDate, subject, attachment, part));
+
+                Statement statement = FrmDashboard.connection.createStatement();
+                statement.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + part + "')");
+
+
+
+
+
+
+
+
+
+                inbox.add(new MyInbox(sender, sentDate, subject, part));
 //                }
             }
 //            folderInbox.close(false);

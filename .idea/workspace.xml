@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="View Message Form added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="View Message with Encryption added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmViewMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmViewMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +137,7 @@
       <workItem from="1661915626068" duration="277000" />
       <workItem from="1661915927676" duration="6319000" />
       <workItem from="1661930469915" duration="424000" />
-      <workItem from="1661930917283" duration="2485000" />
+      <workItem from="1661930917283" duration="4265000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -216,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661931781932</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="View Message with Encryption added">
+      <created>1661934649690</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1661934649690</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +253,8 @@
     <MESSAGE value="AES with Hash added" />
     <MESSAGE value="GUI Set" />
     <MESSAGE value="View Message Form added" />
-    <option name="LAST_COMMIT_MESSAGE" value="View Message Form added" />
+    <MESSAGE value="View Message with Encryption added" />
+    <option name="LAST_COMMIT_MESSAGE" value="View Message with Encryption added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
