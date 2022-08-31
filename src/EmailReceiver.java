@@ -22,14 +22,12 @@ class MyInbox {
     String from, date, subject, message, attachment;
     Message message1;
     MimeBodyPart part;
-    MyInbox(String from, String date, String subject, String message, String attachment, MimeBodyPart part, Message message1) {
+    MyInbox(String from, String date, String subject, String attachment, MimeBodyPart part) {
         this.from = from;
         this.date = date;
         this.subject = subject;
-        this.message = message;
         this.attachment = attachment;
         this.part = part;
-        this.message1 = message1;
     }
 }
 
@@ -86,17 +84,6 @@ public class EmailReceiver {
             Message[] messages = folderInbox.getMessages();
             inbox.clear();
 
-            Statement statement = FrmDashboard.connection.createStatement();
-            statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
-            ResultSet resultSet = statement.getResultSet();
-            PrivateKey privateKey = null;
-            if (resultSet.next()) {
-                if (!Objects.equals(resultSet.getString("privateKey"), "")) {
-                    privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
-                    System.out.println("Private key found");
-                }
-            }
-
             for (Message message : messages) {
                 String attachment = "No";
                 Address[] fromAddress = message.getFrom();
@@ -127,28 +114,7 @@ public class EmailReceiver {
 //                            System.out.println(fileName);
 //                            System.out.println(part.getInputStream());
 
-                            InputStream fileNme = part.getInputStream();
-                            StringWriter writer = new StringWriter();
-                            IOUtils.copy(fileNme, writer, "UTF-8");
-                            String theString = writer.toString();
-                            System.out.println("Text: " + theString);
 
-                            String[] words = theString.split("\\|");
-
-                            System.out.println("words[0]: " + words[0]);
-
-//                            System.out.println(privateKey.getEncoded());
-
-                            String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
-                            System.out.println("RSA Decrypted: " + RSADecrypted);
-                            System.out.println("w1 " + words[1]);
-
-                            // decode the base64 encoded string
-                            byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
-                            byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
-
-                            byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
-                            emailContent = EmailContent.deserialize(AESDecrypted);
 
                             messageContent = "";
 
@@ -174,9 +140,9 @@ public class EmailReceiver {
                     }
                 }
 
-                if (emailContent != null) {
-                    inbox.add(new MyInbox(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message, attachment, part, message));
-                }
+//                if (emailContent != null) {
+                    inbox.add(new MyInbox(from, sentDate, subject, attachment, part));
+//                }
             }
 //            folderInbox.close(false);
 //            store.close();

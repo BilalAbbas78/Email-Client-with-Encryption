@@ -1,11 +1,17 @@
+import org.apache.commons.io.IOUtils;
 import org.openhab.io.jetty.certificate.internal.CertificateGenerator;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.mail.MessagingException;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.State;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -14,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
+import java.util.Objects;
 
 public class FrmDashboard extends JFrame {
 
@@ -190,13 +197,57 @@ public class FrmDashboard extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                new FrmViewMessage().setVisible(true);
+                FrmViewMessage frmViewMessage = new FrmViewMessage();
+//                frmViewMessage.setMessage(tblInbox.getValueAt(tblInbox.getSelectedRow(), 3).toString());
 
-//                int row = tblInbox.getSelectedRow();
-//                txtMessage.setText("Message: " + EmailReceiver.inbox.get(row).message);
-//                lblFrom.setText("From: " + EmailReceiver.inbox.get(row).from);
-//                lblDate.setText("Date: " + EmailReceiver.inbox.get(row).date);
-//                lblSubject.setText("Subject: " + EmailReceiver.inbox.get(row).subject);
+
+
+                MyInbox inbox = EmailReceiver.inbox.get(tblInbox.getSelectedRow());
+
+                InputStream fileNme = null;
+                try {
+
+                    Statement statement = FrmDashboard.connection.createStatement();
+                    statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
+                    ResultSet resultSet = statement.getResultSet();
+                    PrivateKey privateKey = null;
+                    if (resultSet.next()) {
+                        if (!Objects.equals(resultSet.getString("privateKey"), "")) {
+                            privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
+                            System.out.println("Private key found");
+                        }
+                    }
+
+
+                    fileNme = inbox.part.getInputStream();
+                    StringWriter writer = new StringWriter();
+                    IOUtils.copy(fileNme, writer, "UTF-8");
+                    String theString = writer.toString();
+                    String[] words = theString.split("\\|");
+//                    System.out.println("Text: " + theString);
+
+
+//                    System.out.println("words[0]: " + words[0]);
+
+//                    System.out.println(privateKey.getEncoded());
+
+                    String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
+//                    System.out.println("RSA Decrypted: " + RSADecrypted);
+//                    System.out.println("w1 " + words[1]);
+
+                    // decode the base64 encoded string
+                    byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
+                    byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
+
+                    byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+                    EmailContent emailContent = EmailContent.deserialize(AESDecrypted);
+
+                    frmViewMessage.setMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message);
+                    frmViewMessage.setVisible(true);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Private Key may not be available");
+                }
             }
         });
 

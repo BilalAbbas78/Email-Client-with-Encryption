@@ -35,7 +35,7 @@ public class FrmViewMessage extends JFrame {
         add(spTxtMessage);
     }
 
-    public static void setMessage(String from, String date, String subject, String message) {
+    public void setMessage(String from, String date, String subject, String message) {
         lblFrom.setText("From: " + from);
         lblDate.setText("Date: " + date);
         lblSubject.setText("Subject: " + subject);
@@ -44,6 +44,6 @@ public class FrmViewMessage extends JFrame {
 
     public static void main(String[] args) {
         new FrmViewMessage().setVisible(true);
-        setMessage("abc", "def", "ghi", "jhk");
+//        setMessage("abc", "def", "ghi", "jhk");
     }
 }
