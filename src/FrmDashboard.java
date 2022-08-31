@@ -1,17 +1,9 @@
-import org.apache.commons.io.IOUtils;
-import org.openhab.io.jetty.certificate.internal.CertificateGenerator;
-
 import javax.crypto.spec.SecretKeySpec;
-import javax.mail.MessagingException;
 import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.CertificateEncodingException;
@@ -52,7 +44,7 @@ public class FrmDashboard extends JFrame {
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab("Inbox", null, inboxPanel(), "Inbox");
-        tabbedPane.addTab("Sent", null, new JPanel(), "Sent");
+        tabbedPane.addTab("Sent", null, sentPanel(), "Sent");
 //        FlowLayout f = new FlowLayout (FlowLayout.CENTER, 5, 0);
 
         JPanel pnlTab = new JPanel ();
@@ -195,33 +187,13 @@ public class FrmDashboard extends JFrame {
         tblInbox.setModel(model);
         pnlInbox.add(scrollPane);
 
-
-
-//        JButton btnLoadClientCertificate = new JButton("Load Client Certificate");
-//        btnLoadClientCertificate.setBounds(500, 410, 200, 30);
-//        pnlInbox.add(btnLoadClientCertificate);
-
-//        JTextArea txtMessage = new JTextArea();
-//        txtMessage.setLineWrap(true);
-//        txtMessage.setEditable(false);
-//        JScrollPane spTxtMessage = new JScrollPane(txtMessage);
-//        spTxtMessage.setBounds(0, 450, 1300, 370);
-//        pnlInbox.add(spTxtMessage);
-
         tblInbox.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 FrmViewMessage frmViewMessage = new FrmViewMessage();
-//                frmViewMessage.setMessage(tblInbox.getValueAt(tblInbox.getSelectedRow(), 3).toString());
-
-
-
-                MyInbox inbox = EmailReceiver.inbox.get(tblInbox.getSelectedRow());
-
+                Inbox inbox = EmailReceiver.inboxList.get(tblInbox.getSelectedRow());
                 try {
-
                     Statement statement = FrmDashboard.connection.createStatement();
                     statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
                     ResultSet resultSet = statement.getResultSet();
@@ -229,79 +201,69 @@ public class FrmDashboard extends JFrame {
                     if (resultSet.next()) {
                         if (!Objects.equals(resultSet.getString("privateKey"), "")) {
                             privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
-//                            System.out.println("Private key found");
                         }
                     }
-
                     String theString = inbox.part;
                     String[] words = theString.split("\\|");
-//                    System.out.println("Text: " + theString);
-
-
-//                    System.out.println("words[0]: " + words[0]);
-
-//                    System.out.println(privateKey.getEncoded());
-
                     String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
-//                    System.out.println("RSA Decrypted: " + RSADecrypted);
-//                    System.out.println("w1 " + words[1]);
-
-                    // decode the base64 encoded string
                     byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
-
                     byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
                     EmailContent emailContent = EmailContent.deserialize(AESDecrypted);
-
                     frmViewMessage.setMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message);
                     frmViewMessage.setVisible(true);
-
-
-
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Private Key may not be available or is incorrect");
                 }
             }
         });
-
-//        btnImportOwnCertificate.addActionListener(e -> {
-//            X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
-//            if (certificate != null){
-//                try {
-//                    if (isCertificatePresentInDB(certificate)){
-//                        JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
-//                        return;
-//                    }
-//                    else {
-//                        Statement statement = connection.createStatement();
-//                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
-//                        statement.execute(sql);
-//                    }
-//                } catch (SQLException | CertificateEncodingException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-//                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
-//            }
-//            else
-//                JOptionPane.showMessageDialog(null, "Certificate not loaded");
-//        });
-//
-//        btnImportOwnPrivateKey.addActionListener(e -> {
-//
-//        });
-//
-//        btnManageClientCertificates.addActionListener(e -> {
-//
-//        });
-
         return pnlInbox;
+    }
+
+    JPanel sentPanel() throws SQLException {
+        JPanel pnlSent = new JPanel();
+        pnlSent.setLayout(null);
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(0, 0, 1300, 820);
+        model = new DefaultTableModel(
+                new String [] {
+                        "Subject", "To", "Date",
+                }, 0);
+
+        JTable tblSent = new JTable();
+        scrollPane.setViewportView(tblSent);
+        setTblSent(model);
+        tblSent.setModel(model);
+        pnlSent.add(scrollPane);
+
+        tblSent.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                FrmViewMessage frmViewMessage = new FrmViewMessage();
+//                MySent sent = EmailSender.sent.get(tblSent.getSelectedRow());
+//                frmViewMessage.setMessage(sent.to, sent.date.toString(), sent.subject, sent.message);
+//                frmViewMessage.setVisible(true);
+            }
+        });
+        return pnlSent;
+    }
+
+    private void setTblSent(DefaultTableModel model) throws SQLException {
+        model.setRowCount(0);
+        EmailReceiver.sentList.clear();
+        EmailReceiver.downloadEmails("imap", "localhost", "143", FrmLogin.username, FrmLogin.password);
+        for (Sent sent : EmailReceiver.sentList) {
+            model.addRow(new Object[]{sent.subject, sent.to, sent.date});
+        }
     }
 
     static void setTblInbox(DefaultTableModel model) throws SQLException {
         model.setRowCount(0);
-        EmailReceiver.inbox.clear();
+        EmailReceiver.inboxList.clear();
         EmailReceiver.downloadEmails("imap", "localhost", "143", FrmLogin.username, FrmLogin.password);
-        for (MyInbox inbox : EmailReceiver.inbox) {
+        for (Inbox inbox : EmailReceiver.inboxList) {
             model.addRow(new Object[]{inbox.subject, inbox.from, inbox.date});
         }
     }

@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Import own certificate name and root verification added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Import Client Certificate root verification added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmClientCertificates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmClientCertificates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +139,7 @@
       <workItem from="1661930917283" duration="4332000" />
       <workItem from="1661962190099" duration="1661000" />
       <workItem from="1661971955786" duration="4702000" />
-      <workItem from="1661976699483" duration="1960000" />
+      <workItem from="1661976699483" duration="3426000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -249,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661977852073</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Import Client Certificate root verification added">
+      <created>1661978811701</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1661978811701</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +287,8 @@
     <MESSAGE value="Emails inserted in Database" />
     <MESSAGE value="Retreive unread only messages from Server" />
     <MESSAGE value="Import own certificate name and root verification added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Import own certificate name and root verification added" />
+    <MESSAGE value="Import Client Certificate root verification added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Import Client Certificate root verification added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
