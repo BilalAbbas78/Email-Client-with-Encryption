@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Client Certificate Form added">
-      <change afterPath="$PROJECT_DIR$/src/AESWithHash.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="AES with Hash added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AESWithHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESWithHash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmClientCertificates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmClientCertificates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyCertificateGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,8 +83,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EmailContent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="EmailContent" />
+    <configuration name="AESWithHash" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AESWithHash" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmClientCertificates" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FrmClientCertificates" />
       <module name="Email Client with Encryption" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -102,20 +111,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RSAEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RSAEncryption" />
-      <module name="Email Client with Encryption" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmDashboard" />
+        <item itemvalue="Application.FrmClientCertificates" />
         <item itemvalue="Application.FrmLogin" />
+        <item itemvalue="Application.AESWithHash" />
         <item itemvalue="Application.AESGCMEncryption" />
-        <item itemvalue="Application.EmailContent" />
-        <item itemvalue="Application.RSAEncryption" />
       </list>
     </recent_temporary>
   </component>
@@ -136,7 +138,9 @@
       <workItem from="1661885654308" duration="4509000" />
       <workItem from="1661892006956" duration="53000" />
       <workItem from="1661892082374" duration="279000" />
-      <workItem from="1661894492124" duration="366000" />
+      <workItem from="1661894492124" duration="963000" />
+      <workItem from="1661915626068" duration="277000" />
+      <workItem from="1661915927676" duration="6081000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -194,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661889397710</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="AES with Hash added">
+      <created>1661894874082</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1661894874082</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +232,8 @@
     <MESSAGE value="Email Content class added for Serialization" />
     <MESSAGE value="Serialization applied" />
     <MESSAGE value="Client Certificate Form added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Client Certificate Form added" />
+    <MESSAGE value="AES with Hash added" />
+    <option name="LAST_COMMIT_MESSAGE" value="AES with Hash added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

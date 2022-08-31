@@ -46,13 +46,13 @@ public class FrmLogin extends JFrame {
         btnLogin.addActionListener(e -> {
             try {
                 login(txtUsername.getText(), txtPassword.getText());
-            } catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
     }
 
-    private void login(String username, String password) throws ClassNotFoundException {
+    private void login(String username, String password) throws ClassNotFoundException, SQLException {
         FrmDashboard.connection = GlobalClass.connect();
         FrmLogin.username = username;
         FrmLogin.password = password;

@@ -92,7 +92,7 @@ public class EmailReceiver {
             PrivateKey privateKey = null;
             if (resultSet.next()) {
                 if (!Objects.equals(resultSet.getString("privateKey"), "")) {
-                    privateKey = MyCertificateGenerator.getPrivateKeyFromString(resultSet.getString("privateKey"));
+                    privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
                     System.out.println("Private key found");
                 }
             }

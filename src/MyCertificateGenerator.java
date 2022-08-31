@@ -104,7 +104,7 @@ public class MyCertificateGenerator {
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Certificate", "cer");
         fileChooser.addChoosableFileFilter(filter);
-        int result = fileChooser.showSaveDialog(null);
+        int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             File selectedFilePrivateKey = fileChooser.getSelectedFile();
@@ -128,7 +128,7 @@ public class MyCertificateGenerator {
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Private Key", "txt");
         fileChooser.addChoosableFileFilter(filter);
-        int result = fileChooser.showSaveDialog(null);
+        int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             File selectedFilePrivateKey = fileChooser.getSelectedFile();

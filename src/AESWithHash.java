@@ -48,4 +48,10 @@ public class AESWithHash {
         }
         return null;
     }
+
+//    public static void main(String[] args) {
+//        String str = encrypt("Hello World", "password");
+//        System.out.println(str);
+//        System.out.println(decrypt(str, "password"));
+//    }
 }

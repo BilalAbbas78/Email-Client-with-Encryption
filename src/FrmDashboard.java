@@ -20,7 +20,8 @@ public class FrmDashboard extends JFrame {
     public static JTabbedPane jtp;
     static Connection connection;
 
-    FrmDashboard() throws ClassNotFoundException {
+    FrmDashboard() throws ClassNotFoundException, SQLException {
+//        FrmLogin.connection.close();
         connection = GlobalClass.connect();
         setTitle("Dashboard Form");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -34,53 +35,117 @@ public class FrmDashboard extends JFrame {
         renderer.setPrototypeText("This text is a prototype");
         renderer.setHorizontalTextAlignment(SwingConstants.LEADING);
 
-//        tabbedPane.addTab("Compose Email", null, null, "Compose Email");
+//        tabbedPane.btnComposeEmail("Compose Email", null, null, "Compose Email");
 
 
+        tabbedPane.addTab ("test", null);
+        tabbedPane.addTab ("test", null);
+        tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab("Inbox", null, inboxPanel(), "Inbox");
         tabbedPane.addTab("Sent", null, new JPanel(), "Sent");
 //        FlowLayout f = new FlowLayout (FlowLayout.CENTER, 5, 0);
 
-        // Make a small JPanel with the layout and make it non-opaque
         JPanel pnlTab = new JPanel ();
         pnlTab.setOpaque (false);
-        // Create a JButton for adding the tabs
-        JButton addTab = new JButton ("Compose Email +");
-        addTab.setOpaque (false); //
-        addTab.setBorder (null);
-        addTab.setContentAreaFilled (false);
-        addTab.setFocusPainted (false);
-        addTab.setFocusable (false);
-
-        pnlTab.add (addTab);
+        JButton btnComposeEmail = new JButton ("Compose Email +");
+        btnComposeEmail.setOpaque (false); //
+        btnComposeEmail.setBorder (null);
+        btnComposeEmail.setContentAreaFilled (false);
+        btnComposeEmail.setFocusPainted (false);
+        btnComposeEmail.setFocusable (false);
+        pnlTab.add (btnComposeEmail);
         tabbedPane.setTabComponentAt (0, pnlTab);
 
-        ActionListener listener = e -> {
-            addTab.setFocusable (false);
+        JPanel pnlImportOwnCertificate = new JPanel ();
+        pnlImportOwnCertificate.setOpaque (false);
+        JButton btnImportOwnCertificate = new JButton ("Import Own Certificate");
+        btnImportOwnCertificate.setOpaque (false); //
+        btnImportOwnCertificate.setBorder (null);
+        btnImportOwnCertificate.setContentAreaFilled (false);
+        btnImportOwnCertificate.setFocusPainted (false);
+        btnImportOwnCertificate.setFocusable (false);
+        pnlImportOwnCertificate.add (btnImportOwnCertificate);
+        tabbedPane.setTabComponentAt (1, pnlImportOwnCertificate);
 
-            new FrmComposeMail().setVisible(true);
+        JPanel pnlImportOwnPrivateKey = new JPanel ();
+        pnlImportOwnPrivateKey.setOpaque (false);
+        JButton btnImportOwnPrivateKey = new JButton ("Import Own Private Key");
+        btnImportOwnPrivateKey.setOpaque (false); //
+        btnImportOwnPrivateKey.setBorder (null);
+        btnImportOwnPrivateKey.setContentAreaFilled (false);
+        btnImportOwnPrivateKey.setFocusPainted (false);
+        btnImportOwnPrivateKey.setFocusable (false);
+        pnlImportOwnPrivateKey.add (btnImportOwnPrivateKey);
+        tabbedPane.setTabComponentAt (2, pnlImportOwnPrivateKey);
 
-            String title = "Tab " + String.valueOf (tabbedPane.getTabCount () - 1);
-//            tabbedPane.addTab (title, new JLabel (title));
-            System.out.println(title);
+        JPanel pnlManageClientCertificates = new JPanel ();
+        pnlManageClientCertificates.setOpaque (false);
+        JButton btnManageClientCertificates = new JButton ("Manage Client Certificates");
+        btnManageClientCertificates.setOpaque (false); //
+        btnManageClientCertificates.setBorder (null);
+        btnManageClientCertificates.setContentAreaFilled (false);
+        btnManageClientCertificates.setFocusPainted (false);
+        btnManageClientCertificates.setFocusable (false);
+        pnlManageClientCertificates.add (btnManageClientCertificates);
+        tabbedPane.setTabComponentAt (3, pnlManageClientCertificates);
+
+        ActionListener listenerComposeEmail = e -> new FrmComposeMail().setVisible(true);
+
+        ActionListener listenerImportOwnCertificate = e -> {
+            X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
+            if (certificate != null){
+                try {
+                    if (isCertificatePresentInDB(certificate)){
+                        JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
+                        return;
+                    }
+                    else {
+                        Statement statement = connection.createStatement();
+                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
+                        statement.execute(sql);
+                    }
+                } catch (SQLException | CertificateEncodingException ex) {
+                    throw new RuntimeException(ex);
+                }
+                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Certificate not loaded");
         };
-//        addTab.setFocusable (false);
-        addTab.addActionListener (listener);
-//        addTab.setFocusable (false);
 
-        tabbedPane.setSelectedIndex(1);
+        ActionListener listenerImportOwnPrivateKey = e -> {
+            PrivateKey privateKey = MyCertificateGenerator.loadPrivateKeyFromFile();
+            if (privateKey != null){
+                try {
+                    Statement statement = connection.createStatement();
+//                        String sql = "UPDATE SelfCertificates SET PrivateKey = '" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "' WHERE clientName = '" + FrmLogin.username + "'";
+                    String sql = "UPDATE SelfCertificates SET PrivateKey = '" + AESWithHash.encrypt(Base64.getEncoder().encodeToString(privateKey.getEncoded()), FrmLogin.password) + "' WHERE clientName = '" + FrmLogin.username + "'";
+                    statement.executeUpdate(sql);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Certificate is not inserted into the database");
+                    throw new RuntimeException(ex);
+                }
+                JOptionPane.showMessageDialog(null, "Private Key loaded successfully");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Private Key not loaded");
+        };
 
+        ActionListener listenerManageClientCertificates = e -> {
+            try {
+                new FrmClientCertificates().setVisible(true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        };
 
+        btnComposeEmail.addActionListener (listenerComposeEmail);
+        btnImportOwnCertificate.addActionListener (listenerImportOwnCertificate);
+        btnImportOwnPrivateKey.addActionListener (listenerImportOwnPrivateKey);
+        btnManageClientCertificates.addActionListener (listenerManageClientCertificates);
 
-
-
-
-//        tabbedPane.addTab("Long text", UIManager.getIcon("OptionPane.warningIcon"), pnl2, "Warning tool tip");
-//        tabbedPane.addTab("This is a really long text", UIManager.getIcon("OptionPane.errorIcon"), pnl3, "Error tool tip");
-
-
-
+        tabbedPane.setSelectedIndex(4);
 
 
 
@@ -95,11 +160,11 @@ public class FrmDashboard extends JFrame {
         pnlInbox.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(0, 0, 1300, 350);
+        scrollPane.setBounds(0, 0, 1300, 820);
         DefaultTableModel model = new DefaultTableModel(
                 new String [] {
-                "Subject", "From", "Date",
-        }, 0);
+                        "Subject", "From", "Date",
+                }, 0);
 
         JTable tblInbox = new JTable();
         scrollPane.setViewportView(tblInbox);
@@ -107,98 +172,69 @@ public class FrmDashboard extends JFrame {
         tblInbox.setModel(model);
         pnlInbox.add(scrollPane);
 
-        JLabel lblFrom = new JLabel("From:");
-        lblFrom.setBounds(10, 350, 1000, 30);
-        pnlInbox.add(lblFrom);
-
-        JLabel lblDate = new JLabel("Date:");
-        lblDate.setBounds(10, 380, 1000, 30);
-        pnlInbox.add(lblDate);
-
-        JLabel lblSubject = new JLabel("Subject:");
-        lblSubject.setBounds(10, 410, 1000, 30);
-        pnlInbox.add(lblSubject);
+//        JLabel lblFrom = new JLabel("From:");
+//        lblFrom.setBounds(10, 350, 1000, 30);
+//        pnlInbox.add(lblFrom);
+//
+//        JLabel lblDate = new JLabel("Date:");
+//        lblDate.setBounds(10, 380, 1000, 30);
+//        pnlInbox.add(lblDate);
+//
+//        JLabel lblSubject = new JLabel("Subject:");
+//        lblSubject.setBounds(10, 410, 1000, 30);
+//        pnlInbox.add(lblSubject);
 
 //        JButton btnLoadClientCertificate = new JButton("Load Client Certificate");
 //        btnLoadClientCertificate.setBounds(500, 410, 200, 30);
 //        pnlInbox.add(btnLoadClientCertificate);
 
-        JButton btnImportOwnCertificate = new JButton("Import Own Certificate");
-        btnImportOwnCertificate.setBounds(500, 410, 200, 30);
-        pnlInbox.add(btnImportOwnCertificate);
+//        JTextArea txtMessage = new JTextArea();
+//        txtMessage.setLineWrap(true);
+//        txtMessage.setEditable(false);
+//        JScrollPane spTxtMessage = new JScrollPane(txtMessage);
+//        spTxtMessage.setBounds(0, 450, 1300, 370);
+//        pnlInbox.add(spTxtMessage);
 
-        JButton btnImportOwnPrivateKey = new JButton("Import Own Private Key");
-        btnImportOwnPrivateKey.setBounds(710, 410, 200, 30);
-        pnlInbox.add(btnImportOwnPrivateKey);
+//        tblInbox.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                int row = tblInbox.getSelectedRow();
+//                txtMessage.setText("Message: " + EmailReceiver.inbox.get(row).message);
+//                lblFrom.setText("From: " + EmailReceiver.inbox.get(row).from);
+//                lblDate.setText("Date: " + EmailReceiver.inbox.get(row).date);
+//                lblSubject.setText("Subject: " + EmailReceiver.inbox.get(row).subject);
+//            }
+//        });
 
-        JButton btnManageClientCertificates = new JButton("Manage Client Certificates");
-        btnManageClientCertificates.setBounds(920, 410, 200, 30);
-        pnlInbox.add(btnManageClientCertificates);
-
-        JTextArea txtMessage = new JTextArea();
-        txtMessage.setLineWrap(true);
-        txtMessage.setEditable(false);
-        JScrollPane spTxtMessage = new JScrollPane(txtMessage);
-        spTxtMessage.setBounds(0, 450, 1300, 370);
-        pnlInbox.add(spTxtMessage);
-
-        tblInbox.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = tblInbox.getSelectedRow();
-                txtMessage.setText("Message: " + EmailReceiver.inbox.get(row).message);
-                lblFrom.setText("From: " + EmailReceiver.inbox.get(row).from);
-                lblDate.setText("Date: " + EmailReceiver.inbox.get(row).date);
-                lblSubject.setText("Subject: " + EmailReceiver.inbox.get(row).subject);
-            }
-        });
-
-        btnImportOwnCertificate.addActionListener(e -> {
-            X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
-            if (certificate != null){
-                try {
-                    if (isCertificatePresentInDB(certificate)){
-                        JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
-                        return;
-                    }
-                    else {
-                        Statement statement = connection.createStatement();
-                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
-                        statement.executeUpdate(sql);
-                    }
-                } catch (SQLException | CertificateEncodingException ex) {
-                    throw new RuntimeException(ex);
-                }
-                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
-            }
-            else
-                JOptionPane.showMessageDialog(null, "Certificate not loaded");
-        });
-
-        btnImportOwnPrivateKey.addActionListener(e -> {
-            PrivateKey privateKey = MyCertificateGenerator.loadPrivateKeyFromFile();
-            if (privateKey != null){
-                try {
-                        Statement statement = connection.createStatement();
-                        String sql = "UPDATE SelfCertificates SET PrivateKey = '" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "' WHERE clientName = '" + FrmLogin.username + "'";
-                        statement.executeUpdate(sql);
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Certificate is not inserted into the database");
-                    throw new RuntimeException(ex);
-                }
-                JOptionPane.showMessageDialog(null, "Private Key loaded successfully");
-            }
-            else
-                JOptionPane.showMessageDialog(null, "Private Key not loaded");
-        });
-
-        btnManageClientCertificates.addActionListener(e -> {
-            try {
-                new FrmClientCertificates().setVisible(true);
-            } catch (SQLException | ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+//        btnImportOwnCertificate.addActionListener(e -> {
+//            X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
+//            if (certificate != null){
+//                try {
+//                    if (isCertificatePresentInDB(certificate)){
+//                        JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
+//                        return;
+//                    }
+//                    else {
+//                        Statement statement = connection.createStatement();
+//                        String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
+//                        statement.execute(sql);
+//                    }
+//                } catch (SQLException | CertificateEncodingException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//                JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
+//            }
+//            else
+//                JOptionPane.showMessageDialog(null, "Certificate not loaded");
+//        });
+//
+//        btnImportOwnPrivateKey.addActionListener(e -> {
+//
+//        });
+//
+//        btnManageClientCertificates.addActionListener(e -> {
+//
+//        });
 
         return pnlInbox;
     }
@@ -220,7 +256,8 @@ public class FrmDashboard extends JFrame {
         return isPresent;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//        new FrmLogin();
         new FrmDashboard().setVisible(true);
     }
 }

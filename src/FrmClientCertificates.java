@@ -33,15 +33,15 @@ public class FrmClientCertificates extends JFrame {
         JTable tblClients = new JTable();
         tblClients.setModel(model);
         spTblClients.setViewportView(tblClients);
-        spTblClients.setBounds(10, 10, 200, 200);
+        spTblClients.setBounds(10, 10, 560, 200);
         add(spTblClients);
 
         JButton btnImport = new JButton("Import");
-        btnImport.setBounds(300, 10, 100, 30);
+        btnImport.setBounds(160, 300, 100, 30);
         add(btnImport);
 
         JButton btnRemove = new JButton("Remove");
-        btnRemove.setBounds(300, 50, 100, 30);
+        btnRemove.setBounds(320, 300, 100, 30);
         add(btnRemove);
 
         btnImport.addActionListener(e -> {
