@@ -172,17 +172,7 @@ public class FrmDashboard extends JFrame {
         tblInbox.setModel(model);
         pnlInbox.add(scrollPane);
 
-//        JLabel lblFrom = new JLabel("From:");
-//        lblFrom.setBounds(10, 350, 1000, 30);
-//        pnlInbox.add(lblFrom);
-//
-//        JLabel lblDate = new JLabel("Date:");
-//        lblDate.setBounds(10, 380, 1000, 30);
-//        pnlInbox.add(lblDate);
-//
-//        JLabel lblSubject = new JLabel("Subject:");
-//        lblSubject.setBounds(10, 410, 1000, 30);
-//        pnlInbox.add(lblSubject);
+
 
 //        JButton btnLoadClientCertificate = new JButton("Load Client Certificate");
 //        btnLoadClientCertificate.setBounds(500, 410, 200, 30);
@@ -195,16 +185,20 @@ public class FrmDashboard extends JFrame {
 //        spTxtMessage.setBounds(0, 450, 1300, 370);
 //        pnlInbox.add(spTxtMessage);
 
-//        tblInbox.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
+        tblInbox.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                new FrmViewMessage().setVisible(true);
+
 //                int row = tblInbox.getSelectedRow();
 //                txtMessage.setText("Message: " + EmailReceiver.inbox.get(row).message);
 //                lblFrom.setText("From: " + EmailReceiver.inbox.get(row).from);
 //                lblDate.setText("Date: " + EmailReceiver.inbox.get(row).date);
 //                lblSubject.setText("Subject: " + EmailReceiver.inbox.get(row).subject);
-//            }
-//        });
+            }
+        });
 
 //        btnImportOwnCertificate.addActionListener(e -> {
 //            X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();

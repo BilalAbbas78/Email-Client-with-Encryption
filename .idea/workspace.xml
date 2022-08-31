@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="AES with Hash added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="GUI Set">
+      <change afterPath="$PROJECT_DIR$/src/FrmViewMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AESWithHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESWithHash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmClientCertificates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmClientCertificates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MyCertificateGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyCertificateGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,14 +69,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDashboard">
-    <configuration name="AESGCMEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AESGCMEncryption" />
-      <module name="Email Client with Encryption" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.FrmViewMessage">
     <configuration name="AESWithHash" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AESWithHash" />
       <module name="Email Client with Encryption" />
@@ -111,13 +98,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FrmViewMessage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FrmViewMessage" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmViewMessage" />
         <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.FrmClientCertificates" />
         <item itemvalue="Application.FrmLogin" />
         <item itemvalue="Application.AESWithHash" />
-        <item itemvalue="Application.AESGCMEncryption" />
       </list>
     </recent_temporary>
   </component>
@@ -140,7 +134,9 @@
       <workItem from="1661892082374" duration="279000" />
       <workItem from="1661894492124" duration="963000" />
       <workItem from="1661915626068" duration="277000" />
-      <workItem from="1661915927676" duration="6081000" />
+      <workItem from="1661915927676" duration="6319000" />
+      <workItem from="1661930469915" duration="424000" />
+      <workItem from="1661930917283" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -205,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661894874082</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="GUI Set">
+      <created>1661930356519</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1661930356519</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,7 +236,8 @@
     <MESSAGE value="Serialization applied" />
     <MESSAGE value="Client Certificate Form added" />
     <MESSAGE value="AES with Hash added" />
-    <option name="LAST_COMMIT_MESSAGE" value="AES with Hash added" />
+    <MESSAGE value="GUI Set" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI Set" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
