@@ -1,28 +1,21 @@
 import org.apache.commons.io.IOUtils;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
+import javax.mail.search.FlagTerm;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.PrivateKey;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Objects;
 import java.util.Properties;
 
 class MyInbox {
-    String from, date, subject, message, attachment;
-    Message message1;
-    MimeBodyPart part;
-    MyInbox(String from, String date, String subject, MimeBodyPart part) {
+    String from, date, subject, part;
+    MyInbox(String from, String date, String subject, String part) {
         this.from = from;
         this.date = date;
         this.subject = subject;
@@ -62,7 +55,7 @@ public class EmailReceiver {
     }
 
     public static void downloadEmails(String protocol, String host, String port,
-                                      String userName, String password) {
+                                      String userName, String password) throws SQLException {
         Properties properties = getServerProperties(protocol, host, port);
         Session session = Session.getDefaultInstance(properties);
 
@@ -79,8 +72,13 @@ public class EmailReceiver {
             folderInbox.open(Folder.READ_WRITE);
             folderInbox.expunge();
 
+            // search for all "unseen" messages
+            Flags seen = new Flags(Flags.Flag.SEEN);
+            FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
+
             // fetches new messages from server
-            Message[] messages = folderInbox.getMessages();
+            Message[] messages = folderInbox.search(unseenFlagTerm);
+//            Message[] messages = folderInbox.getMessages();
             inbox.clear();
 
             for (Message message : messages) {
@@ -141,24 +139,25 @@ public class EmailReceiver {
 
 //                if (emailContent != null) {
 
-                Statement statement = FrmDashboard.connection.createStatement();
-                statement.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + part + "')");
+                message.setFlag(Flags.Flag.SEEN, true);
 
+                InputStream fileNme = part.getInputStream();
+                StringWriter writer = new StringWriter();
+                IOUtils.copy(fileNme, writer, "UTF-8");
+                String theString = writer.toString();
+                System.out.println(theString);
 
+                Statement statement1 = FrmDashboard.connection.createStatement();
+                statement1.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + theString + "')");
+                statement1.close();
 
+//                inbox.add(new MyInbox(sender, sentDate, subject, theString));
 
-
-
-
-
-
-                inbox.add(new MyInbox(sender, sentDate, subject, part));
-//                }
+                System.out.println(sender + " " + sentDate + " " + subject);
             }
 //            folderInbox.close(false);
 //            store.close();
         } catch (NoSuchProviderException ex) {
-            System.out.println("No provider for protocol: " + protocol);
             ex.printStackTrace();
         } catch (MessagingException ex) {
             FrmLogin.isValid = false;
@@ -166,10 +165,15 @@ public class EmailReceiver {
 //            System.out.println("Could not connect to the message store");
 //            ex.printStackTrace();
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        }
+        finally {
+            Statement statement1 = FrmDashboard.connection.createStatement();
+            ResultSet resultSet = statement1.executeQuery("SELECT * FROM Emails WHERE clientName = '" + FrmLogin.username + "'");
+            while (resultSet.next()) {
+                inbox.add(new MyInbox(resultSet.getString("senderName"), resultSet.getString("sentDate"), resultSet.getString("subject"), resultSet.getString("body")));
+            }
         }
     }
 
@@ -197,25 +201,25 @@ public class EmailReceiver {
     /**
      * Test downloading e-mail messages
      */
-    public static void main(String[] args) {
-        // for POP3
-        //String protocol = "pop3";
-        //String host = "pop.gmail.com";
-        //String port = "995";
-
-        // for IMAP
-        String protocol = "imap";
-        String host = "localhost";
-        String port = "143";
-
-//        String userName = "account1@bilal.com";
-//        String password = "123";
-        String userName = FrmLogin.username;
-        String password = FrmLogin.password;
-
-        System.out.println("Downloading emails from " + userName + "...");
-
-        EmailReceiver receiver = new EmailReceiver();
-        receiver.downloadEmails(protocol, host, port, userName, password);
-    }
+//    public static void main(String[] args) throws SQLException {
+//        // for POP3
+//        //String protocol = "pop3";
+//        //String host = "pop.gmail.com";
+//        //String port = "995";
+//
+//        // for IMAP
+//        String protocol = "imap";
+//        String host = "localhost";
+//        String port = "143";
+//
+////        String userName = "account1@bilal.com";
+////        String password = "123";
+//        String userName = FrmLogin.username;
+//        String password = FrmLogin.password;
+//
+//        System.out.println("Downloading emails from " + userName + "...");
+//
+//        EmailReceiver receiver = new EmailReceiver();
+//        receiver.downloadEmails(protocol, host, port, userName, password);
+//    }
 }

@@ -26,6 +26,7 @@ public class FrmDashboard extends JFrame {
 
     public static JTabbedPane jtp;
     static Connection connection;
+    static DefaultTableModel model;
 
     FrmDashboard() throws ClassNotFoundException, SQLException {
 //        FrmLogin.connection.close();
@@ -162,13 +163,13 @@ public class FrmDashboard extends JFrame {
 
     }
 
-    JPanel inboxPanel() {
+    JPanel inboxPanel() throws SQLException {
         JPanel pnlInbox = new JPanel();
         pnlInbox.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(0, 0, 1300, 820);
-        DefaultTableModel model = new DefaultTableModel(
+        model = new DefaultTableModel(
                 new String [] {
                         "Subject", "From", "Date",
                 }, 0);
@@ -204,7 +205,6 @@ public class FrmDashboard extends JFrame {
 
                 MyInbox inbox = EmailReceiver.inbox.get(tblInbox.getSelectedRow());
 
-                InputStream fileNme = null;
                 try {
 
                     Statement statement = FrmDashboard.connection.createStatement();
@@ -214,15 +214,11 @@ public class FrmDashboard extends JFrame {
                     if (resultSet.next()) {
                         if (!Objects.equals(resultSet.getString("privateKey"), "")) {
                             privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
-                            System.out.println("Private key found");
+//                            System.out.println("Private key found");
                         }
                     }
 
-
-                    fileNme = inbox.part.getInputStream();
-                    StringWriter writer = new StringWriter();
-                    IOUtils.copy(fileNme, writer, "UTF-8");
-                    String theString = writer.toString();
+                    String theString = inbox.part;
                     String[] words = theString.split("\\|");
 //                    System.out.println("Text: " + theString);
 
@@ -244,6 +240,8 @@ public class FrmDashboard extends JFrame {
 
                     frmViewMessage.setMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message);
                     frmViewMessage.setVisible(true);
+
+
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Private Key may not be available or is incorrect");
@@ -284,7 +282,9 @@ public class FrmDashboard extends JFrame {
         return pnlInbox;
     }
 
-    void setTblInbox(DefaultTableModel model) {
+    static void setTblInbox(DefaultTableModel model) throws SQLException {
+        model.setRowCount(0);
+        EmailReceiver.inbox.clear();
         EmailReceiver.downloadEmails("imap", "localhost", "143", FrmLogin.username, FrmLogin.password);
         for (MyInbox inbox : EmailReceiver.inbox) {
             model.addRow(new Object[]{inbox.subject, inbox.from, inbox.date});

@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="View Message with Encryption added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Emails inserted in Database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +139,10 @@
       <workItem from="1661915626068" duration="277000" />
       <workItem from="1661915927676" duration="6319000" />
       <workItem from="1661930469915" duration="424000" />
-      <workItem from="1661930917283" duration="4265000" />
+      <workItem from="1661930917283" duration="4332000" />
+      <workItem from="1661962190099" duration="1661000" />
+      <workItem from="1661971955786" duration="4702000" />
+      <workItem from="1661976699483" duration="312000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -223,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661934649690</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Emails inserted in Database">
+      <created>1661936462060</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1661936462060</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +266,8 @@
     <MESSAGE value="GUI Set" />
     <MESSAGE value="View Message Form added" />
     <MESSAGE value="View Message with Encryption added" />
-    <option name="LAST_COMMIT_MESSAGE" value="View Message with Encryption added" />
+    <MESSAGE value="Emails inserted in Database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Emails inserted in Database" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

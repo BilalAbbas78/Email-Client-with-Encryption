@@ -2,6 +2,8 @@ import javax.mail.MessagingException;
 import javax.swing.*;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class FrmComposeMail extends JFrame {
     private JPanel myPanel;
@@ -46,6 +48,11 @@ public class FrmComposeMail extends JFrame {
             } else {
                 try {
                     new EmailSender();
+
+                    FrmDashboard.setTblInbox(FrmDashboard.model);
+
+
+
                     setVisible(false);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Message can't send");
