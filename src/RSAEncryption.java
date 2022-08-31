@@ -79,7 +79,7 @@ public class RSAEncryption {
 
     public static String encrypt(String message, PublicKey publicKey) throws Exception {
         if (publicKey == null){
-            JOptionPane.showMessageDialog(null, "Receiver's certificate is not found");
+//            JOptionPane.showMessageDialog(null, "Receiver's certificate is not found");
             return null;
         }
         else {

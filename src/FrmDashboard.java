@@ -316,7 +316,7 @@ public class FrmDashboard extends JFrame {
         return isPresent;
     }
 
-    boolean isCertificateSignedByRoot(X509Certificate certificate, PublicKey publicKey) throws SQLException, CertificateEncodingException {
+    static boolean isCertificateSignedByRoot(X509Certificate certificate, PublicKey publicKey) throws SQLException, CertificateEncodingException {
         boolean isSigned = false;
             try {
                 certificate.verify(publicKey);

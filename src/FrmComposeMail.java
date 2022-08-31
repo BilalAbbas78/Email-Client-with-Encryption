@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class FrmComposeMail extends JFrame {
@@ -46,21 +47,31 @@ public class FrmComposeMail extends JFrame {
             if (to.equals("") || message.equals("") || subject.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields");
             } else {
+                boolean isClientExists = false;
                 try {
-                    new EmailSender();
-
-                    FrmDashboard.setTblInbox(FrmDashboard.model);
-
-
-
-                    setVisible(false);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Message can't send");
-                    ex.printStackTrace();
+                    Statement statement = FrmDashboard.connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM ClientCertificates WHERE clientName = '" + to + "'");
+                    isClientExists = resultSet.next();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-                txtTo.setText("");
-                txtMessage.setText("");
-                txtSubject.setText("");
+                if (isClientExists) {
+                    try {
+                        new EmailSender();
+                        FrmDashboard.setTblInbox(FrmDashboard.model);
+                        setVisible(false);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Message can't send");
+                        ex.printStackTrace();
+                    }
+                    txtTo.setText("");
+                    txtMessage.setText("");
+                    txtSubject.setText("");
+                }
+                else {
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "Please load Client Certificate first");
+                }
             }
 //            EmailSender.sendMessage(FrmMain.username, to, message);
         });

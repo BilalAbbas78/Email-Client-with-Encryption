@@ -89,17 +89,19 @@ public class FrmClientCertificates extends JFrame {
                 if (isCertificatePresentInDB(certificate)){
                     JOptionPane.showMessageDialog(null, "Certificate is already present in the database");
                     return;
-                }
-                else {
+                } else if (!FrmDashboard.isCertificateSignedByRoot(certificate, GlobalClass.rootCertificate.getPublicKey())) {
+                    JOptionPane.showMessageDialog(null, "Certificate is not signed by root");
+                } else {
                     Statement statement = connection.createStatement();
                     String sql = "INSERT INTO ClientCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "')";
                     statement.executeUpdate(sql);
                     statement.close();
+                    JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
                 }
-            } catch (SQLException | CertificateEncodingException ex) {
+            }
+            catch (SQLException | CertificateEncodingException ex) {
                 throw new RuntimeException(ex);
             }
-            JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
         }
         else
             JOptionPane.showMessageDialog(null, "Certificate not loaded");
