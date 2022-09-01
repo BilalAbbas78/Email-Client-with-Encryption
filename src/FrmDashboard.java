@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -24,12 +25,12 @@ public class FrmDashboard extends JFrame {
     FrmDashboard() throws ClassNotFoundException, SQLException {
 //        FrmLogin.connection.close();
         connection = GlobalClass.connect();
-        setTitle("Dashboard Form");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(null);
+        setTitle();
 
         JXTabbedPane tabbedPane = new JXTabbedPane(JTabbedPane.LEFT);
         AbstractTabRenderer renderer = (AbstractTabRenderer)tabbedPane.getTabRenderer();
@@ -108,11 +109,12 @@ public class FrmDashboard extends JFrame {
                                     Statement statement = connection.createStatement();
                                     String sql = "INSERT INTO SelfCertificates VALUES ('" + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "','"   + Base64.getEncoder().encodeToString(certificate.getEncoded()) + "','')";
                                     statement.execute(sql);
+                                    setTitle("Dashboard Form - User: " + certificate.getSubjectDN().getName().replaceFirst("DNQ=", "") + "   Expiry Date: " + new SimpleDateFormat("dd-MMM-yyyy").format(certificate.getNotAfter()));
+                                    JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
                                 }
                             } catch (SQLException | CertificateEncodingException ex) {
                                 throw new RuntimeException(ex);
                             }
-                            JOptionPane.showMessageDialog(null, "Certificate loaded successfully");
                         }
                         else {
                             JOptionPane.showMessageDialog(null, "Certificate is not signed by the root certificate");
@@ -280,13 +282,27 @@ public class FrmDashboard extends JFrame {
 
     static boolean isCertificateSignedByRoot(X509Certificate certificate, PublicKey publicKey) throws SQLException, CertificateEncodingException {
         boolean isSigned = false;
-            try {
-                certificate.verify(publicKey);
-                isSigned = true;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            certificate.verify(publicKey);
+            isSigned = true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return isSigned;
+    }
+
+    void setTitle() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
+        if (resultSet.next()) {
+            X509Certificate certificate = MyCertificateGenerator.getCertificateFromString(resultSet.getString("certificate"));
+            if (certificate != null) {
+                setTitle("Dashboard Form - User: " + resultSet.getString("clientName") + "   Expiry Date: " + new SimpleDateFormat("dd-MMM-yyyy").format(certificate.getNotAfter()));
+            }
+        }
+        else {
+            setTitle("Dashboard");
+        }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
