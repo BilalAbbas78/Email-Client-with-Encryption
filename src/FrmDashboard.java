@@ -4,8 +4,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.sql.Connection;
@@ -15,12 +14,15 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class FrmDashboard extends JFrame {
 
     public static JTabbedPane jtp;
     static Connection connection;
     static DefaultTableModel model;
+    static Inbox selectedInbox;
+    static PrivateKey privateKey = null;
 
     FrmDashboard() throws ClassNotFoundException, SQLException {
 //        FrmLogin.connection.close();
@@ -134,16 +136,57 @@ public class FrmDashboard extends JFrame {
         ActionListener listenerImportOwnPrivateKey = e -> {
             PrivateKey privateKey = MyCertificateGenerator.loadPrivateKeyFromFile();
             if (privateKey != null){
+                X509Certificate certificate = null;
                 try {
-                    Statement statement = connection.createStatement();
-//                        String sql = "UPDATE SelfCertificates SET PrivateKey = '" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "' WHERE clientName = '" + FrmLogin.username + "'";
-                    String sql = "UPDATE SelfCertificates SET PrivateKey = '" + AESWithHash.encrypt(Base64.getEncoder().encodeToString(privateKey.getEncoded()), FrmLogin.password) + "' WHERE clientName = '" + FrmLogin.username + "'";
-                    statement.executeUpdate(sql);
+                    Statement statement1 = connection.createStatement();
+                    ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
+                    if (resultSet1.next()){
+                        certificate = MyCertificateGenerator.getCertificateFromString(resultSet1.getString("Certificate"));
+                    }
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Certificate is not inserted into the database");
                     throw new RuntimeException(ex);
                 }
-                JOptionPane.showMessageDialog(null, "Private Key loaded successfully");
+
+                if (certificate != null) {
+                    // create a challenge
+                    byte[] challenge = new byte[10000];
+                    ThreadLocalRandom.current().nextBytes(challenge);
+
+                    boolean keyPairMatches;
+                    // sign using the private key
+                    try {
+                        Signature sig = Signature.getInstance("SHA256withRSA");
+                        sig.initSign(privateKey);
+                        sig.update(challenge);
+//                        sig.initVerify(certificate.getPublicKey());
+//                        sig.update(challenge);
+                        byte[] signature = sig.sign();
+                        Signature sig2 = Signature.getInstance("SHA256withRSA");
+                        sig2.initVerify(certificate.getPublicKey());
+                        sig2.update(challenge);
+                        keyPairMatches = sig2.verify(signature);
+                    }
+                    catch (InvalidKeyException | SignatureException | NoSuchAlgorithmException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    if (keyPairMatches){
+                        try {
+                            Statement statement = connection.createStatement();
+//                        String sql = "UPDATE SelfCertificates SET PrivateKey = '" + Base64.getEncoder().encodeToString(privateKey.getEncoded()) + "' WHERE clientName = '" + FrmLogin.username + "'";
+                            String sql = "UPDATE SelfCertificates SET PrivateKey = '" + AESWithHash.encrypt(Base64.getEncoder().encodeToString(privateKey.getEncoded()), FrmLogin.password) + "' WHERE clientName = '" + FrmLogin.username + "'";
+                            statement.executeUpdate(sql);
+                            JOptionPane.showMessageDialog(null, "Private Key loaded successfully");
+                        }
+                        catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Certificate is not inserted into the database");
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Private key does not match the certificate");
+                    }
+                }
             }
             else
                 JOptionPane.showMessageDialog(null, "Private Key not loaded");
@@ -194,18 +237,23 @@ public class FrmDashboard extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 FrmViewMessage frmViewMessage = new FrmViewMessage();
-                Inbox inbox = EmailReceiver.inboxList.get(tblInbox.getSelectedRow());
+                selectedInbox = EmailReceiver.inboxList.get(tblInbox.getSelectedRow());
+                if (selectedInbox.parts.size() == 0) {
+                    FrmViewMessage.btnDownloadAttachments.setVisible(false);
+                }
+                else {
+                    FrmViewMessage.btnDownloadAttachments.setText("Download Attachments (" + selectedInbox.parts.size() + ")");
+                }
                 try {
                     Statement statement = FrmDashboard.connection.createStatement();
                     statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
                     ResultSet resultSet = statement.getResultSet();
-                    PrivateKey privateKey = null;
                     if (resultSet.next()) {
                         if (!Objects.equals(resultSet.getString("privateKey"), "")) {
                             privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
                         }
                     }
-                    String theString = inbox.part;
+                    String theString = selectedInbox.part;
                     String[] words = theString.split("\\|");
                     String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
                     byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);

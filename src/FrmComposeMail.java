@@ -1,10 +1,27 @@
+import javax.activation.DataHandler;
+import javax.mail.BodyPart;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+class Attachment {
+    String fileName, filePath;
+    Attachment(String fileName, String filePath) {
+        this.fileName = fileName;
+        this.filePath = filePath;
+    }
+}
 
 public class FrmComposeMail extends JFrame {
     private JPanel myPanel;
@@ -18,23 +35,92 @@ public class FrmComposeMail extends JFrame {
     private JLabel lblSubject;
     private JButton btnSelectAttachment;
 
+    public static ArrayList<Attachment> attachments = new ArrayList<>();
+
     public static String to, subject, message;
     public static String filePath = "";
     public static String fileName = "";
 
     FrmComposeMail() {
         setTitle("Compose Mail");
-        setSize(400, 400);
+        setSize(400, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setContentPane(myPanel);
+//        setContentPane(myPanel);
+        setLayout(null);
+
+        lblTo = new JLabel("To");
+        txtTo = new JTextField();
+        lblSubject = new JLabel("Subject");
+        txtSubject = new JTextField();
+        lblMessage = new JLabel("Message");
+        txtMessage = new JTextArea();
+        btnSend = new JButton("Send");
+        btnExit = new JButton("Exit");
+        btnSelectAttachment = new JButton("Select Attachment");
+
+        lblTo.setBounds(10, 10, 100, 30);
+        add(lblTo);
+
+        txtTo.setBounds(110, 10, 200, 30);
+        add(txtTo);
+
+        lblSubject.setBounds(10, 50, 100, 30);
+        add(lblSubject);
+
+        txtSubject.setBounds(110, 50, 200, 30);
+        add(txtSubject);
+
+        lblMessage.setBounds(10, 90, 100, 30);
+        add(lblMessage);
+
+        txtMessage.setBounds(110, 90, 200, 200);
+        add(txtMessage);
+
+        btnSelectAttachment.setBounds(110, 300, 200, 30);
+        add(btnSelectAttachment);
+
+        btnSend.setBounds(110, 340, 100, 30);
+        add(btnSend);
+
+        btnExit.setBounds(220, 340, 100, 30);
+        add(btnExit);
 
         btnSelectAttachment.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.showOpenDialog(null);
-            File file = fileChooser.getSelectedFile();
-            filePath = file.getAbsolutePath();
-            fileName = file.getName();
+
+            if (fileChooser.getSelectedFile() != null) {
+                filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                fileName = fileChooser.getSelectedFile().getName();
+
+                attachments.add(new Attachment(fileName, filePath));
+            }
+
+
+//            File file = fileChooser.getSelectedFile();
+//            filePath = file.getAbsolutePath();
+//            fileName = file.getName();
+
+            //                // Create the message part
+//                BodyPart messageBodyPart = new MimeBodyPart();
+//                // Now set the actual message
+//                messageBodyPart.setText("");
+//                // Create a multipart message
+//            Multipart multipart = new MimeMultipart();
+//                // Set text message part
+//                multipart.addBodyPart(messageBodyPart);
+            // Part two is attachment
+//                messageBodyPart = new MimeBodyPart();
+//                byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+//                messageBodyPart.setDataHandler(new DataHandler(bytes, "application/octet-stream"));
+//                messageBodyPart.setFileName(fileName);
+//                multipart.addBodyPart(messageBodyPart);
+
+//            Attachment attachment = new Attachment(multipart, filePath);
+//            attachments.add(attachment);
+//
+//            System.out.println(multipart);
 //            filepath = file.
 //            txtMessage.append("\nAttachment: " + file.getName());
         });
@@ -58,6 +144,7 @@ public class FrmComposeMail extends JFrame {
                 if (isClientExists) {
                     try {
                         new EmailSender();
+                        attachments.clear();
                         FrmDashboard.setTblInbox(FrmDashboard.model);
                         setVisible(false);
                     } catch (Exception ex) {

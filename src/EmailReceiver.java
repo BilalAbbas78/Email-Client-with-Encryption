@@ -6,19 +6,19 @@ import javax.mail.search.FlagTerm;
 import javax.swing.*;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 class Inbox {
     String from, date, subject, part;
-    Inbox(String from, String date, String subject, String part) {
+    ArrayList<MimeBodyPart> parts;
+    Inbox(String from, String date, String subject, String part, ArrayList<MimeBodyPart> parts) {
         this.from = from;
         this.date = date;
         this.subject = subject;
         this.part = part;
+        this.parts = parts;
     }
 }
 
@@ -90,8 +90,8 @@ public class EmailReceiver {
             FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
 
             // fetches new messages from server
-            // Message[] messages = folderInbox.getMessages();
-            Message[] messagesInbox = folderInbox.search(unseenFlagTerm);
+             Message[] messagesInbox = folderInbox.getMessages();
+//            Message[] messagesInbox = folderInbox.search(unseenFlagTerm);
             Message[] messagesSent = folderSent.getMessages();
             inboxList.clear();
 
@@ -102,6 +102,7 @@ public class EmailReceiver {
             }
 
             for (Message message : messagesInbox) {
+                ArrayList<MimeBodyPart> parts = new ArrayList<>();
 //                String attachment = "No";
                 Address[] fromAddress = message.getFrom();
                 String sender = fromAddress[0].toString();
@@ -126,6 +127,8 @@ public class EmailReceiver {
 //                            System.out.println(part.getInputStream());
                             messageContent = "";
                             attachFiles += part.getFileName() + ", ";
+                            parts.add(part);
+//                            System.out.println("Attachment: " + part.getFileName());
                         } else {
                             // this part may be the message content
 //                            messageContent = part.getContent().toString();
@@ -146,19 +149,29 @@ public class EmailReceiver {
 
                 message.setFlag(Flags.Flag.SEEN, true);
 
-                InputStream fileNme = part.getInputStream();
+
+
+
+
+                InputStream fileNme = parts.get(0).getInputStream();
                 StringWriter writer = new StringWriter();
                 IOUtils.copy(fileNme, writer, "UTF-8");
                 String theString = writer.toString();
-                System.out.println(theString);
+//                System.out.println(theString);
 
-                Statement statement1 = FrmDashboard.connection.createStatement();
-                statement1.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + theString + "')");
-                statement1.close();
+                parts.remove(0);
 
-//                inbox.add(new MyInbox(sender, sentDate, subject, theString));
 
-                System.out.println(sender + " " + sentDate + " " + subject);
+
+
+//                Statement statement1 = FrmDashboard.connection.createStatement();
+//                statement1.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + theString + "')");
+//                statement1.close();
+
+                inboxList.add(new Inbox(sender, sentDate, subject, theString, parts));
+
+
+//                System.out.println(sender + " " + sentDate + " " + subject);
             }
 //            folderInbox.close(false);
 //            store.close();
@@ -174,11 +187,11 @@ public class EmailReceiver {
             e.printStackTrace();
         }
         finally {
-            Statement statement1 = FrmDashboard.connection.createStatement();
-            ResultSet resultSet = statement1.executeQuery("SELECT * FROM Emails WHERE clientName = '" + FrmLogin.username + "'");
-            while (resultSet.next()) {
-                inboxList.add(new Inbox(resultSet.getString("senderName"), resultSet.getString("sentDate"), resultSet.getString("subject"), resultSet.getString("body")));
-            }
+//            Statement statement1 = FrmDashboard.connection.createStatement();
+//            ResultSet resultSet = statement1.executeQuery("SELECT * FROM Emails WHERE clientName = '" + FrmLogin.username + "'");
+//            while (resultSet.next()) {
+//                inboxList.add(new Inbox(resultSet.getString("senderName"), resultSet.getString("sentDate"), resultSet.getString("subject"), resultSet.getString("body")));
+//            }
         }
     }
 

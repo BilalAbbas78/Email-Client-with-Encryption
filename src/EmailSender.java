@@ -1,3 +1,5 @@
+import org.apache.commons.io.FileUtils;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -9,6 +11,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
@@ -75,8 +79,6 @@ public class EmailSender {
 
         String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
 
-
-        SecretKey AESEncryptionKey = AESGCMEncryption.key;
         PublicKey publicKey = null;
 
         Statement statement = FrmDashboard.connection.createStatement();
@@ -89,10 +91,13 @@ public class EmailSender {
                 publicKey = certificate.getPublicKey();
         }
 
+
+        SecretKey AESEncryptionKey = AESGCMEncryption.key;
+
         String RSAEncryptedString = RSAEncryption.encrypt(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()), publicKey);
 
-        System.out.println("AES Encrypted String: " + AESEncryptedString);
-        System.out.println("RSA Encrypted String: " + RSAEncryptedString);
+//        System.out.println("AES Encrypted String: " + AESEncryptedString);
+//        System.out.println("RSA Encrypted String: " + RSAEncryptedString);
 
         String EncryptedMessageString = RSAEncryptedString + "|" + AESEncryptedString;
 
@@ -101,11 +106,35 @@ public class EmailSender {
         messageBodyPart.setFileName("message");
         multipart.addBodyPart(messageBodyPart);
 
+//        addAttachment(multipart, publicKey, "C:\\Users\\Syed Bilal Abbas\\Desktop\\Vivaldi.lnk", "Vivaldi.lnk");
+
+        for (Attachment attachment: FrmComposeMail.attachments) {
+            addAttachment(multipart, publicKey, attachment.filePath, attachment.fileName);
+        }
+
         // Send the complete message parts
         message.setContent(multipart);
         Transport.send(message);
+        FrmComposeMail.attachments.clear();
         JOptionPane.showMessageDialog(null, "Message sent successfully");
     }
+
+    private static void addAttachment(Multipart multipart, PublicKey publicKey, String filepath, String filename) throws Exception {
+//        DataSource source = new FileDataSource(filepath);
+        File file = new File(filepath);
+        String AESEncryptedString = AESGCMEncryption.encrypt(FileUtils.readFileToByteArray(file));
+        SecretKey AESEncryptionKey = AESGCMEncryption.key;
+        String RSAEncryptedString = RSAEncryption.encrypt(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()), publicKey);
+        String EncryptedMessageString = RSAEncryptedString + "|" + AESEncryptedString;
+        byte[] bytes = EncryptedMessageString.getBytes(StandardCharsets.UTF_8);
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setDataHandler(new DataHandler(bytes, "application/octet-stream"));
+        messageBodyPart.setFileName(filename);
+        multipart.addBodyPart(messageBodyPart);
+    }
+
+
+
 
 
 //public static void sendMessage(String sender, String receiver, String msg, String subject) throws MessagingException {
