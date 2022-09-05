@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Dashboard Title updated">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Multiple Attachments with Encryption added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.form" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmViewMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmViewMessage.java" afterDir="false" />
@@ -150,7 +147,11 @@
       <workItem from="1662020580589" duration="1178000" />
       <workItem from="1662060480509" duration="2275000" />
       <workItem from="1662089560634" duration="1286000" />
-      <workItem from="1662209438898" duration="4642000" />
+      <workItem from="1662209438898" duration="5662000" />
+      <workItem from="1662319440103" duration="1262000" />
+      <workItem from="1662348779362" duration="1461000" />
+      <workItem from="1662354103788" duration="3496000" />
+      <workItem from="1662412191418" duration="3571000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -278,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662008110700</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Multiple Attachments with Encryption added">
+      <created>1662241823761</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1662241823761</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +323,8 @@
     <MESSAGE value="Import Client Certificate root verification added" />
     <MESSAGE value="Sent Message added" />
     <MESSAGE value="Dashboard Title updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard Title updated" />
+    <MESSAGE value="Multiple Attachments with Encryption added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Multiple Attachments with Encryption added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -143,7 +143,7 @@ public class FrmComposeMail extends JFrame {
                 }
                 if (isClientExists) {
                     try {
-                        new EmailSender();
+                        new EmailSender().sendEmail();
                         attachments.clear();
                         FrmDashboard.setTblInbox(FrmDashboard.model);
                         setVisible(false);

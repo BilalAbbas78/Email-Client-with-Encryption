@@ -236,14 +236,7 @@ public class FrmDashboard extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                FrmViewMessage frmViewMessage = new FrmViewMessage();
                 selectedInbox = EmailReceiver.inboxList.get(tblInbox.getSelectedRow());
-                if (selectedInbox.parts.size() == 0) {
-                    FrmViewMessage.btnDownloadAttachments.setVisible(false);
-                }
-                else {
-                    FrmViewMessage.btnDownloadAttachments.setText("Download Attachments (" + selectedInbox.parts.size() + ")");
-                }
                 try {
                     Statement statement = FrmDashboard.connection.createStatement();
                     statement.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
@@ -260,7 +253,8 @@ public class FrmDashboard extends JFrame {
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
                     byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
                     EmailContent emailContent = EmailContent.deserialize(AESDecrypted);
-                    frmViewMessage.setMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message);
+                    FrmViewMessage frmViewMessage = new FrmViewMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message, selectedInbox.parts);
+//                    frmViewMessage.setMessage(;
                     frmViewMessage.setVisible(true);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Private Key may not be available or is incorrect");

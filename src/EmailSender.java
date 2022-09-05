@@ -27,6 +27,9 @@ public class EmailSender {
     static Session session;
 
     EmailSender() throws Exception {
+    }
+
+    void sendEmail() throws Exception {
         setProperties();
         createSession(FrmLogin.username, FrmLogin.password);
         sendMessage(FrmLogin.username, FrmComposeMail.to, FrmComposeMail.message, FrmComposeMail.subject);
