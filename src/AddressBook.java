@@ -25,5 +25,6 @@ class Contact {
     ArrayList<String> behalfList = new ArrayList<>();
     Contact(String user) {
         this.user = user;
+        behalfList.add(user);
     }
 }

@@ -11,11 +11,24 @@ public class GlobalClass {
     public static Connection connection;
     public static X509Certificate rootCertificate;
     public static String receiver;
+    static AddressBook addressBook = new AddressBook();
+
     public static Connection connect() throws ClassNotFoundException {
+
+        addressBook.contacts.clear();
+        Contact contact = new Contact("user2@xyz.com");
+        contact.behalfList.add("abc");
+        Contact contact2 = new Contact("user1@xyz.com");
+        contact2.behalfList.add("qwe");
+        addressBook.addContact(contact);
+        addressBook.addContact(contact2);
+
+
         rootCertificate = null;
         try {
             rootCertificate = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(new FileInputStream("root.cer"));
-        } catch (FileNotFoundException | CertificateException e) {
+        }
+        catch (FileNotFoundException | CertificateException e) {
             throw new RuntimeException(e);
         }
         connection = null;

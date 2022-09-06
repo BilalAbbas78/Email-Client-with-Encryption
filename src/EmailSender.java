@@ -62,20 +62,12 @@ public class EmailSender {
 
     public static void sendMessage(String sender, String receiver, String msg, String subject) throws Exception {
 
-        AddressBook addressBook = new AddressBook();
 
-        Contact contact = new Contact("user2@xyz.com");
-        contact.behalfList.add("abc");
 
-        Contact contact2 = new Contact("user1@xyz.com");
-        contact2.behalfList.add("qwe");
-
-        addressBook.addContact(contact);
-        addressBook.addContact(contact2);
 
         String receiveOnBehalf = receiver;
 
-        receiver = addressBook.getUserFromBehalf(receiver);
+        receiver = GlobalClass.addressBook.getUserFromBehalf(receiver);
 
         if (receiver == null) {
             JOptionPane.showMessageDialog(null, "Receiver not found");
