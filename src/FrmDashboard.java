@@ -4,6 +4,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -158,9 +159,9 @@ public class FrmDashboard extends JFrame {
                         Signature sig = Signature.getInstance("SHA256withRSA");
                         sig.initSign(privateKey);
                         sig.update(challenge);
-//                        sig.initVerify(certificate.getPublicKey());
-//                        sig.update(challenge);
                         byte[] signature = sig.sign();
+
+
                         Signature sig2 = Signature.getInstance("SHA256withRSA");
                         sig2.initVerify(certificate.getPublicKey());
                         sig2.update(challenge);
@@ -246,8 +247,48 @@ public class FrmDashboard extends JFrame {
                             privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet.getString("privateKey"), FrmLogin.password));
                         }
                     }
+
+                    String from = selectedInbox.from;
+                    from = from.replaceFirst("\"", "");
+                    from = from.substring(0, from.indexOf("\""));
+                    PublicKey senderPublicKey = null;
+                    Statement statement2 = FrmDashboard.connection.createStatement();
+                    statement2.execute("SELECT certificate FROM ClientCertificates WHERE clientName = '" + from + "'");
+                    ResultSet resultSet2 = statement2.getResultSet();
+                    if (resultSet2.next()) {
+                        if (!Objects.equals(resultSet2.getString("certificate"), "")) {
+                            X509Certificate certificate = MyCertificateGenerator.getCertificateFromString(resultSet2.getString("certificate"));
+                            if (certificate != null)
+                                senderPublicKey = certificate.getPublicKey();
+                        }
+                    }
+
+
+
+
                     String theString = selectedInbox.part;
                     String[] words = theString.split("\\|");
+
+
+
+                    if (senderPublicKey == null){
+                        JOptionPane.showMessageDialog(null, "Sender's public key is not found");
+                        return;
+                    }
+                    else {
+                        String strToVerify = words[0] + "|" + words[1];
+                        System.out.println(strToVerify);
+                        byte[] signatureBytes = Base64.getDecoder().decode(words[2].getBytes());
+                        Signature sig2 = Signature.getInstance("SHA256withRSA");
+                        sig2.initVerify(senderPublicKey);
+                        sig2.update(strToVerify.getBytes(StandardCharsets.UTF_8));
+                        boolean keyPairMatches = sig2.verify(signatureBytes);
+                        System.out.println("Verifying signature: " + keyPairMatches);
+                    }
+
+
+
+
                     String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
                     byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
@@ -256,7 +297,13 @@ public class FrmDashboard extends JFrame {
                     FrmViewMessage frmViewMessage = new FrmViewMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message, selectedInbox.parts);
 //                    frmViewMessage.setMessage(;
                     frmViewMessage.setVisible(true);
-                } catch (Exception ex) {
+                }
+                catch (SignatureException ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Message is not signed by the sender");
+                }
+                catch (Exception ex2) {
+                    ex2.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Private Key may not be available or is incorrect");
                 }
             }

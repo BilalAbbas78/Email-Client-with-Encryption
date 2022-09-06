@@ -15,11 +15,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Properties;
 
 public class EmailSender {
@@ -95,7 +98,22 @@ public class EmailSender {
         }
 
 
+        PrivateKey privateKey = null;
+        Statement statement2 = FrmDashboard.connection.createStatement();
+        statement2.execute("SELECT privateKey FROM SelfCertificates WHERE clientName = '" + FrmLogin.username + "'");
+        ResultSet resultSet2 = statement2.getResultSet();
+        if (resultSet2.next()) {
+            if (!Objects.equals(resultSet2.getString("privateKey"), "")) {
+                privateKey = MyCertificateGenerator.getPrivateKeyFromString(AESWithHash.decrypt(resultSet2.getString("privateKey"), FrmLogin.password));
+            }
+        }
+
+
+
+
         SecretKey AESEncryptionKey = AESGCMEncryption.key;
+
+
 
         String RSAEncryptedString = RSAEncryption.encrypt(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()), publicKey);
 
@@ -104,7 +122,17 @@ public class EmailSender {
 
         String EncryptedMessageString = RSAEncryptedString + "|" + AESEncryptedString;
 
-        byte[] bytes = EncryptedMessageString.getBytes(StandardCharsets.UTF_8);
+        Signature sig = Signature.getInstance("SHA256withRSA");
+        sig.initSign(privateKey);
+        sig.update(EncryptedMessageString.getBytes(StandardCharsets.UTF_8));
+        byte[] signature = sig.sign();
+        String signatureString = Base64.getEncoder().encodeToString(signature);
+
+        String EncryptedMessageStringWithSignature = EncryptedMessageString + "|" + signatureString;
+
+
+
+        byte[] bytes = EncryptedMessageStringWithSignature.getBytes(StandardCharsets.UTF_8);
         messageBodyPart.setDataHandler(new DataHandler(bytes, "application/octet-stream"));
         messageBodyPart.setFileName("message");
         multipart.addBodyPart(messageBodyPart);

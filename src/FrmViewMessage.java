@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.security.Signature;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -35,7 +36,6 @@ public class FrmViewMessage extends JFrame {
                 StringWriter writer = new StringWriter();
                 IOUtils.copy(fileNme, writer, "UTF-8");
                 String theString = writer.toString();
-
                 String[] words = theString.split("\\|");
                 String RSADecrypted = RSAEncryption.decrypt(words[0], FrmDashboard.privateKey);
                 byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
