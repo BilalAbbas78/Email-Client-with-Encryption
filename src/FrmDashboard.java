@@ -294,7 +294,7 @@ public class FrmDashboard extends JFrame {
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
                     byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
                     EmailContent emailContent = EmailContent.deserialize(AESDecrypted);
-                    FrmViewMessage frmViewMessage = new FrmViewMessage(emailContent.from, emailContent.date.toString(), emailContent.subject, emailContent.message, selectedInbox.parts);
+                    FrmViewMessage frmViewMessage = new FrmViewMessage(emailContent.from, emailContent.to, emailContent.date.toString(), emailContent.subject, emailContent.message, selectedInbox.parts);
 //                    frmViewMessage.setMessage(;
                     frmViewMessage.setVisible(true);
                 }

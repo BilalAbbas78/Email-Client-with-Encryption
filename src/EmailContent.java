@@ -5,12 +5,13 @@ import java.util.Date;
 public class EmailContent implements Serializable {
 //    static byte[] byteArray;
 
-    String subject, message, from;
+    String subject, message, from, to;
     Date date;
-    EmailContent(String subject, String message, String from, Date date){
+    EmailContent(String subject, String message, String from, String to, Date date){
         this.subject = subject;
         this.message = message;
         this.from = from;
+        this.to = to;
         this.date = date;
     }
 

@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Send and Receive Message with Signature implemented">
-      <change afterPath="$PROJECT_DIR$/src/AddressBook.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Address Book added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailContent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmViewMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmViewMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +154,7 @@
       <workItem from="1662348779362" duration="1461000" />
       <workItem from="1662354103788" duration="3496000" />
       <workItem from="1662412191418" duration="5059000" />
-      <workItem from="1662468984448" duration="4057000" />
+      <workItem from="1662468984448" duration="5958000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -300,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662470584945</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Address Book added">
+      <created>1662475744953</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1662475744953</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,7 +351,8 @@
     <MESSAGE value="Multiple Attachments with Names Separately save" />
     <MESSAGE value="Multiple Attachments with names Separately save" />
     <MESSAGE value="Send and Receive Message with Signature implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Send and Receive Message with Signature implemented" />
+    <MESSAGE value="Address Book added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Address Book added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -13,7 +13,7 @@ import java.util.Base64;
 
 public class FrmViewMessage extends JFrame {
     static JTextArea txtMessage;
-    static JLabel lblFrom, lblDate, lblSubject;
+    static JLabel lblFrom, lblTo, lblDate, lblSubject;
     public static JButton btnDownloadAttachments;
     static ArrayList<MimeBodyPart> parts;
     static ArrayList<JButton> buttons;
@@ -58,8 +58,8 @@ public class FrmViewMessage extends JFrame {
 
 
 
-    FrmViewMessage(String from, String date, String subject, String message, ArrayList<MimeBodyPart> parts) throws MessagingException {
-        setSize(600, 600);
+    FrmViewMessage(String from, String to, String date, String subject, String message, ArrayList<MimeBodyPart> parts) throws MessagingException {
+        setSize(600, 620);
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("View Message");
@@ -70,27 +70,32 @@ public class FrmViewMessage extends JFrame {
         lblFrom.setBounds(10, 10, 500, 30);
         add(lblFrom);
 
+        lblTo = new JLabel("To:");
+        lblTo.setBounds(10, 40, 500, 30);
+        add(lblTo);
+
         lblDate = new JLabel("Date:");
-        lblDate.setBounds(10, 40, 500, 30);
+        lblDate.setBounds(10, 70, 500, 30);
         add(lblDate);
 
         lblSubject = new JLabel("Subject:");
-        lblSubject.setBounds(10, 70, 500, 30);
+        lblSubject.setBounds(10, 100, 500, 30);
         add(lblSubject);
 
         JLabel lblMessage = new JLabel("Message:");
-        lblMessage.setBounds(10, 100, 400, 30);
+        lblMessage.setBounds(10, 130, 400, 30);
         add(lblMessage);
 
         txtMessage = new JTextArea();
         txtMessage.setLineWrap(true);
         JScrollPane spTxtMessage = new JScrollPane(txtMessage);
         txtMessage.setEditable(false);
-        spTxtMessage.setBounds(10, 130, 570, 340);
+        spTxtMessage.setBounds(10, 160, 570, 340);
         add(spTxtMessage);
 
 
         lblFrom.setText("From: " + from);
+        lblTo.setText("To: " + to);
         lblDate.setText("Date: " + date);
         lblSubject.setText("Subject: " + subject);
         txtMessage.setText(message);
@@ -107,7 +112,7 @@ public class FrmViewMessage extends JFrame {
             panel.add(buttons.get(i));
         }
         JScrollPane scrollPane=new JScrollPane(panel);
-        scrollPane.setBounds(10, 480, 570, 60);
+        scrollPane.setBounds(10, 510, 570, 60);
         add(scrollPane);
 
 
@@ -168,8 +173,8 @@ public class FrmViewMessage extends JFrame {
         FrmViewMessage.parts = parts;
     }
 
-    public static void main(String[] args) {
-//        new FrmViewMessage().setVisible(true);
-//        setMessage("abc", "def", "ghi", "jhk");
+    public static void main(String[] args) throws MessagingException {
+        FrmViewMessage frmViewMessage = new FrmViewMessage("abc", "def", "ghi", "jhk", "lmn", new ArrayList<MimeBodyPart>());
+        frmViewMessage.setVisible(true);
     }
 }

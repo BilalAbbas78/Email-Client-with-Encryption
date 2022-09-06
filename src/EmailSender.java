@@ -67,8 +67,20 @@ public class EmailSender {
         Contact contact = new Contact("user2@xyz.com");
         contact.behalfList.add("abc");
 
+        Contact contact2 = new Contact("user1@xyz.com");
+        contact2.behalfList.add("qwe");
+
         addressBook.addContact(contact);
+        addressBook.addContact(contact2);
+
+        String receiveOnBehalf = receiver;
+
         receiver = addressBook.getUserFromBehalf(receiver);
+
+        if (receiver == null) {
+            JOptionPane.showMessageDialog(null, "Receiver not found");
+            return;
+        }
 
 
         Message message = new MimeMessage(session);
@@ -90,7 +102,7 @@ public class EmailSender {
         // Part two is attachment
         messageBodyPart = new MimeBodyPart();
 
-        EmailContent emailContent = new EmailContent(subject, msg, receiver, new java.util.Date());
+        EmailContent emailContent = new EmailContent(subject, msg, receiver, receiveOnBehalf, new java.util.Date());
         byte[] emailBytes = EmailContent.serialize(emailContent);
 
         String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
