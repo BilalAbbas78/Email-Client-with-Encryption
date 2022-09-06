@@ -61,6 +61,16 @@ public class EmailSender {
     }
 
     public static void sendMessage(String sender, String receiver, String msg, String subject) throws Exception {
+
+        AddressBook addressBook = new AddressBook();
+
+        Contact contact = new Contact("user2@xyz.com");
+        contact.behalfList.add("abc");
+
+        addressBook.addContact(contact);
+        receiver = addressBook.getUserFromBehalf(receiver);
+
+
         Message message = new MimeMessage(session);
         GlobalClass.receiver = receiver;
         message.setFrom(new InternetAddress(sender));

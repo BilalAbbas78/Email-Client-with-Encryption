@@ -141,7 +141,7 @@ public class FrmComposeMail extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                if (isClientExists) {
+//                if (isClientExists) {
                     try {
                         new EmailSender().sendEmail();
                         attachments.clear();
@@ -154,11 +154,11 @@ public class FrmComposeMail extends JFrame {
                     txtTo.setText("");
                     txtMessage.setText("");
                     txtSubject.setText("");
-                }
-                else {
-                    dispose();
-                    JOptionPane.showMessageDialog(null, "Please load Client Certificate first");
-                }
+//                }
+//                else {
+//                    dispose();
+//                    JOptionPane.showMessageDialog(null, "Please load Client Certificate first");
+//                }
             }
 //            EmailSender.sendMessage(FrmMain.username, to, message);
         });
