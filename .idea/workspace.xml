@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Address Book Form added">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AESGCMEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmAddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmAddressBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
       <change beforePath="$PROJECT_DIR$/src/RSAEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RSAEncryption.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,13 +68,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.FrmDashboard">
-    <configuration name="FrmClientCertificates" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FrmClientCertificates" />
-      <module name="Email Client with Encryption" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FrmComposeMail" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmComposeMail" />
       <module name="Email Client with Encryption" />
@@ -108,13 +96,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RSAEncryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RSAEncryption" />
+      <module name="Email Client with Encryption" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmDashboard" />
+        <item itemvalue="Application.RSAEncryption" />
         <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmLogin" />
         <item itemvalue="Application.FrmViewMessage" />
-        <item itemvalue="Application.FrmClientCertificates" />
       </list>
     </recent_temporary>
   </component>
@@ -156,7 +151,7 @@
       <workItem from="1662468984448" duration="10171000" />
       <workItem from="1662521666795" duration="1085000" />
       <workItem from="1662529123170" duration="1091000" />
-      <workItem from="1662580265548" duration="2615000" />
+      <workItem from="1662580265548" duration="3473000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -326,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662496289990</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="So far so good">
+      <created>1662583035921</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1662583035921</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +350,6 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Tabs added" />
     <MESSAGE value="Inbox GUI Set" />
-    <MESSAGE value="So far so good" />
     <MESSAGE value="Email send with encryption RSA + AES" />
     <MESSAGE value="Email Content class added for Serialization" />
     <MESSAGE value="Serialization applied" />
@@ -370,7 +371,8 @@
     <MESSAGE value="Address Book added" />
     <MESSAGE value="To added in EmailContent" />
     <MESSAGE value="Address Book Form added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Address Book Form added" />
+    <MESSAGE value="So far so good" />
+    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
