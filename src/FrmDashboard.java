@@ -27,6 +27,7 @@ public class FrmDashboard extends JFrame {
 
     FrmDashboard() throws ClassNotFoundException, SQLException {
 //        FrmLogin.connection.close();
+
         connection = GlobalClass.connect();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -43,6 +44,7 @@ public class FrmDashboard extends JFrame {
 //        tabbedPane.btnComposeEmail("Compose Email", null, null, "Compose Email");
 
 
+        tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
@@ -95,7 +97,20 @@ public class FrmDashboard extends JFrame {
         pnlManageClientCertificates.add (btnManageClientCertificates);
         tabbedPane.setTabComponentAt (3, pnlManageClientCertificates);
 
+        JPanel pnlAddressBook = new JPanel ();
+        pnlAddressBook.setOpaque (false);
+        JButton btnAddressBook = new JButton ("Address Book");
+        btnAddressBook.setOpaque (false); //
+        btnAddressBook.setBorder (null);
+        btnAddressBook.setContentAreaFilled (false);
+        btnAddressBook.setFocusPainted (false);
+        btnAddressBook.setFocusable (false);
+        pnlAddressBook.add (btnAddressBook);
+        tabbedPane.setTabComponentAt (4, pnlAddressBook);
+
         ActionListener listenerComposeEmail = e -> new FrmComposeMail().setVisible(true);
+
+        ActionListener listenerAddressBook = e -> new FrmAddressBook().setVisible(true);
 
         ActionListener listenerImportOwnCertificate = e -> {
             X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();
@@ -205,8 +220,9 @@ public class FrmDashboard extends JFrame {
         btnImportOwnCertificate.addActionListener (listenerImportOwnCertificate);
         btnImportOwnPrivateKey.addActionListener (listenerImportOwnPrivateKey);
         btnManageClientCertificates.addActionListener (listenerManageClientCertificates);
+        btnAddressBook.addActionListener (listenerAddressBook);
 
-        tabbedPane.setSelectedIndex(4);
+        tabbedPane.setSelectedIndex(5);
 
 
 
@@ -290,7 +306,15 @@ public class FrmDashboard extends JFrame {
 
 
                     String RSADecrypted = RSAEncryption.decrypt(words[0], privateKey);
-                    byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
+
+                    String[] words2 = RSADecrypted.split("\\|");
+
+                    System.out.println("Decrypted: " + RSADecrypted);
+                    System.out.println("Decrypted 0: " + words2[0]);
+//                    System.out.println("Decrypted 1: " + words2[1]);
+
+
+                    byte[] decodedKey = Base64.getDecoder().decode(words2[0]);
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
                     byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
                     EmailContent emailContent = EmailContent.deserialize(AESDecrypted);

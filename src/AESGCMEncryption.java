@@ -7,6 +7,7 @@ import java.util.Base64;
 
 public class AESGCMEncryption {
     public static SecretKey key;
+    static Cipher encryptionCipher;
     static String iv = "349ED607B1BDF85B";
 
     public static String encrypt(byte[] messageInBytes) throws Exception {
@@ -14,8 +15,8 @@ public class AESGCMEncryption {
         keyGen.init(128);
         key = keyGen.generateKey();
 //        byte[] messageInBytes = message.getBytes();
-        Cipher encryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv.getBytes(StandardCharsets.UTF_8));
+        encryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
+        GCMParameterSpec spec = new GCMParameterSpec(128, iv.getBytes());
         encryptionCipher.init(Cipher.ENCRYPT_MODE, key, spec);
         byte[] encryptedBytes = encryptionCipher.doFinal(messageInBytes);
         return encode(encryptedBytes);
@@ -24,10 +25,9 @@ public class AESGCMEncryption {
     public static byte[] decrypt(byte[] encryptedBytes, SecretKey key) throws Exception {
 //        byte[] messageInBytes = decode(encryptedMessage);
         Cipher decryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv.getBytes(StandardCharsets.UTF_8));
+        GCMParameterSpec spec = new GCMParameterSpec(128, iv.getBytes());
         decryptionCipher.init(Cipher.DECRYPT_MODE, key, spec);
-        byte[] decryptedBytes = decryptionCipher.doFinal(encryptedBytes);
-        return decryptedBytes;
+        return decryptionCipher.doFinal(encryptedBytes);
     }
 
 //    public static void main(String[] args) {

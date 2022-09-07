@@ -3,13 +3,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class FrmAddressBook extends JFrame {
-    static AddressBook addressBook = new AddressBook();
+//    static AddressBook addressBook = new AddressBook();
     static Contact selfSelectedContact = null;
 
     FrmAddressBook() {
 
         setTitle("Address Book");
-        setSize(700, 450);
+        setSize(700, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -49,6 +49,10 @@ public class FrmAddressBook extends JFrame {
         JButton btnDeleteSelfAddressReceiver = new JButton("Delete");
         btnDeleteSelfAddressReceiver.setBounds(120, 360, 90, 30);
         add(btnDeleteSelfAddressReceiver);
+
+        JButton btnExportSelfAddressReceiver = new JButton("Export");
+        btnExportSelfAddressReceiver.setBounds(70, 400, 90, 30);
+        add(btnExportSelfAddressReceiver);
 
 
 
@@ -114,7 +118,7 @@ public class FrmAddressBook extends JFrame {
     private void setTblOthers(DefaultTableModel model2, DefaultTableModel model3) {
         model2.setRowCount(0);
         model3.setRowCount(0);
-        for (Contact contact : addressBook.contacts) {
+        for (Contact contact : GlobalClass.addressBook.contacts) {
             if (!contact.user.equals(FrmLogin.username)) {
                 model2.addRow(new Object[]{contact.user});
 //                selfSelectedContact = contact;
@@ -129,7 +133,7 @@ public class FrmAddressBook extends JFrame {
 
     void setTblSelfAddressBook(DefaultTableModel model) {
         model.setRowCount(0);
-        for (Contact contact : addressBook.contacts) {
+        for (Contact contact : GlobalClass.addressBook.contacts) {
             if (contact.user.equals(FrmLogin.username)) {
                 selfSelectedContact = contact;
                 for (String behalf : contact.behalfList) {
@@ -142,15 +146,6 @@ public class FrmAddressBook extends JFrame {
     }
 
     public static void main(String[] args) {
-
-        addressBook.contacts.clear();
-        Contact contact = new Contact("user2@xyz.com");
-        contact.behalfList.add("abc");
-        Contact contact2 = new Contact("user1@xyz.com");
-        contact2.behalfList.add("qwe");
-        addressBook.addContact(contact);
-        addressBook.addContact(contact2);
-
         new FrmAddressBook().setVisible(true);
     }
 }

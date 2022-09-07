@@ -98,6 +98,12 @@ public class EmailSender {
         byte[] emailBytes = EmailContent.serialize(emailContent);
 
         String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
+        SecretKey AESEncryptionKey = AESGCMEncryption.key;
+        String iv = new String(AESGCMEncryption.encryptionCipher.getIV());
+
+        System.out.println(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()));
+        System.out.println("iv: " + iv);
+
 
         PublicKey publicKey = null;
 
@@ -125,7 +131,6 @@ public class EmailSender {
 
 
 
-        SecretKey AESEncryptionKey = AESGCMEncryption.key;
 
 
 
