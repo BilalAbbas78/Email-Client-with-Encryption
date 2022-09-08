@@ -8,11 +8,26 @@ public class AddressBook {
         contacts.add(contact);
     }
 
-    String getUserFromBehalf(String fromBehalf) {
+    String getOthersUser(String fromBehalf) {
         for (Contact contact : contacts) {
-            for (String behalf : contact.behalfList) {
-                if (behalf.equals(fromBehalf)) {
-                    return contact.user;
+            if (!contact.user.equals(FrmLogin.username)) {
+                for (String behalf : contact.behalfList) {
+                    if (behalf.equals(fromBehalf)) {
+                        return contact.user;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    String getSelfUser(String fromBehalf) {
+        for (Contact contact : contacts) {
+            if (contact.user.equals(FrmLogin.username)) {
+                for (String behalf : contact.behalfList) {
+                    if (behalf.equals(fromBehalf)) {
+                        return contact.user;
+                    }
                 }
             }
         }

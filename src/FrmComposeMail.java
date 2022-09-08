@@ -25,8 +25,8 @@ class Attachment {
 
 public class FrmComposeMail extends JFrame {
     private JPanel myPanel;
-    private JTextField txtTo;
-    private JLabel lblTo;
+    private JTextField txtTo, txtFrom;
+    private JLabel lblTo, lblFrom;
     private JLabel lblMessage;
     private JTextArea txtMessage;
     private JButton btnSend;
@@ -37,7 +37,7 @@ public class FrmComposeMail extends JFrame {
 
     public static ArrayList<Attachment> attachments = new ArrayList<>();
 
-    public static String to, subject, message;
+    public static String from, to, subject, message;
     public static String filePath = "";
     public static String fileName = "";
 
@@ -49,6 +49,8 @@ public class FrmComposeMail extends JFrame {
 //        setContentPane(myPanel);
         setLayout(null);
 
+        lblFrom = new JLabel("From");
+        txtFrom = new JTextField();
         lblTo = new JLabel("To");
         txtTo = new JTextField();
         lblSubject = new JLabel("Subject");
@@ -59,31 +61,37 @@ public class FrmComposeMail extends JFrame {
         btnExit = new JButton("Exit");
         btnSelectAttachment = new JButton("Select Attachment");
 
-        lblTo.setBounds(10, 10, 100, 30);
+        lblFrom.setBounds(10, 10, 100, 30);
+        add(lblFrom);
+
+        txtFrom.setBounds(110, 10, 200, 30);
+        add(txtFrom);
+
+        lblTo.setBounds(10, 50, 100, 30);
         add(lblTo);
 
-        txtTo.setBounds(110, 10, 200, 30);
+        txtTo.setBounds(110, 50, 200, 30);
         add(txtTo);
 
-        lblSubject.setBounds(10, 50, 100, 30);
+        lblSubject.setBounds(10, 90, 100, 30);
         add(lblSubject);
 
-        txtSubject.setBounds(110, 50, 200, 30);
+        txtSubject.setBounds(110, 90, 200, 30);
         add(txtSubject);
 
-        lblMessage.setBounds(10, 90, 100, 30);
+        lblMessage.setBounds(10, 130, 100, 30);
         add(lblMessage);
 
-        txtMessage.setBounds(110, 90, 200, 200);
+        txtMessage.setBounds(110, 130, 200, 200);
         add(txtMessage);
 
-        btnSelectAttachment.setBounds(110, 300, 200, 30);
+        btnSelectAttachment.setBounds(110, 340, 200, 30);
         add(btnSelectAttachment);
 
-        btnSend.setBounds(110, 340, 100, 30);
+        btnSend.setBounds(110, 380, 100, 30);
         add(btnSend);
 
-        btnExit.setBounds(220, 340, 100, 30);
+        btnExit.setBounds(220, 380, 100, 30);
         add(btnExit);
 
         btnSelectAttachment.addActionListener(e -> {
@@ -126,11 +134,12 @@ public class FrmComposeMail extends JFrame {
         });
 
         btnSend.addActionListener(e -> {
+            from = txtFrom.getText();
             to = txtTo.getText();
             message = txtMessage.getText();
             subject = txtSubject.getText();
 
-            if (to.equals("") || message.equals("") || subject.equals("")) {
+            if (from.equals("") || to.equals("") || message.equals("") || subject.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields");
             } else {
                 boolean isClientExists = false;
@@ -151,6 +160,7 @@ public class FrmComposeMail extends JFrame {
                         JOptionPane.showMessageDialog(null, "Message can't send");
                         ex.printStackTrace();
                     }
+                    txtFrom.setText("");
                     txtTo.setText("");
                     txtMessage.setText("");
                     txtSubject.setText("");

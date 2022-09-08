@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Address Book linked with DB">
-      <change beforePath="$PROJECT_DIR$/src/AESGCMEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AESGCMEncryption.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="AES GCM variable iv">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddressBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmViewMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmViewMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,9 +111,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmDashboard" />
+        <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmAddressBook" />
         <item itemvalue="Application.RSAEncryption" />
-        <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmLogin" />
       </list>
     </recent_temporary>
@@ -156,7 +157,9 @@
       <workItem from="1662521666795" duration="1085000" />
       <workItem from="1662529123170" duration="1091000" />
       <workItem from="1662580265548" duration="7150000" />
-      <workItem from="1662607108689" duration="298000" />
+      <workItem from="1662607108689" duration="1452000" />
+      <workItem from="1662665883785" duration="249000" />
+      <workItem from="1662666179215" duration="697000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -347,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662607191093</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="AES GCM variable iv">
+      <created>1662607499447</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1662607499447</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +376,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Inbox GUI Set" />
     <MESSAGE value="Email send with encryption RSA + AES" />
     <MESSAGE value="Email Content class added for Serialization" />
     <MESSAGE value="Serialization applied" />
@@ -391,7 +400,8 @@
     <MESSAGE value="So far so good" />
     <MESSAGE value="RSA OAEP implemented" />
     <MESSAGE value="Address Book linked with DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="Address Book linked with DB" />
+    <MESSAGE value="AES GCM variable iv" />
+    <option name="LAST_COMMIT_MESSAGE" value="AES GCM variable iv" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

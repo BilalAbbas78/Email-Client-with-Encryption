@@ -1,19 +1,14 @@
 import org.apache.commons.io.FileUtils;
 
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.crypto.SecretKey;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -35,7 +30,7 @@ public class EmailSender {
     void sendEmail() throws Exception {
         setProperties();
         createSession(FrmLogin.username, FrmLogin.password);
-        sendMessage(FrmLogin.username, FrmComposeMail.to, FrmComposeMail.message, FrmComposeMail.subject);
+        sendMessage(FrmComposeMail.from, FrmComposeMail.to, FrmComposeMail.message, FrmComposeMail.subject);
     }
 
 //    public static void main(String[] args) throws MessagingException {
@@ -66,11 +61,16 @@ public class EmailSender {
 
 
         String receiveOnBehalf = receiver;
+        receiver = GlobalClass.addressBook.getOthersUser(receiver);
 
-        receiver = GlobalClass.addressBook.getUserFromBehalf(receiver);
+        String sendOnBehalf = sender;
+        sender = GlobalClass.addressBook.getSelfUser(sender);
 
         if (receiver == null) {
             JOptionPane.showMessageDialog(null, "Receiver not found");
+            return;
+        } else if (sender == null) {
+            JOptionPane.showMessageDialog(null, "Sender not found");
             return;
         }
 
@@ -94,7 +94,7 @@ public class EmailSender {
         // Part two is attachment
         messageBodyPart = new MimeBodyPart();
 
-        EmailContent emailContent = new EmailContent(subject, msg, receiver, receiveOnBehalf, new java.util.Date());
+        EmailContent emailContent = new EmailContent(subject, msg, sendOnBehalf, receiveOnBehalf, new java.util.Date());
         byte[] emailBytes = EmailContent.serialize(emailContent);
 
         String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
