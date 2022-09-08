@@ -319,10 +319,12 @@ public class FrmDashboard extends JFrame {
                     System.out.println("Decrypted 0: " + words2[0]);
 //                    System.out.println("Decrypted 1: " + words2[1]);
 
+                    byte[] iv = Base64.getDecoder().decode(words2[1]);
+
 
                     byte[] decodedKey = Base64.getDecoder().decode(words2[0]);
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
-                    byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+                    byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"), iv);
                     EmailContent emailContent = EmailContent.deserialize(AESDecrypted);
                     FrmViewMessage frmViewMessage = new FrmViewMessage(emailContent.from, emailContent.to, emailContent.date.toString(), emailContent.subject, emailContent.message, selectedInbox.parts);
 //                    frmViewMessage.setMessage(;

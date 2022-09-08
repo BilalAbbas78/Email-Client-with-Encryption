@@ -99,7 +99,7 @@ public class EmailSender {
 
         String AESEncryptedString = AESGCMEncryption.encrypt(emailBytes);
         SecretKey AESEncryptionKey = AESGCMEncryption.key;
-        String iv = new String(AESGCMEncryption.encryptionCipher.getIV());
+        String iv = Base64.getEncoder().encodeToString(AESGCMEncryption.encryptionCipher.getIV());
 
         System.out.println(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()));
         System.out.println("iv: " + iv);
@@ -134,7 +134,7 @@ public class EmailSender {
 
 
 
-        String RSAEncryptedString = RSAEncryption.encrypt(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()), publicKey);
+        String RSAEncryptedString = RSAEncryption.encrypt(Base64.getEncoder().encodeToString(AESEncryptionKey.getEncoded()) + "|" + iv, publicKey);
 
 //        System.out.println("AES Encrypted String: " + AESEncryptedString);
 //        System.out.println("RSA Encrypted String: " + RSAEncryptedString);

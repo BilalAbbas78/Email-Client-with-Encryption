@@ -40,11 +40,11 @@ public class FrmViewMessage extends JFrame {
                 String RSADecrypted = RSAEncryption.decrypt(words[0], FrmDashboard.privateKey);
                 byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
                 byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
-                byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+//                byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
 
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath() + "\\" + part.getFileName());
                 OutputStream out = new FileOutputStream(file);
-                IOUtils.write(AESDecrypted, out);
+//                IOUtils.write(AESDecrypted, out);
                 out.close();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error saving attachment");
@@ -149,11 +149,11 @@ public class FrmViewMessage extends JFrame {
                     String RSADecrypted = RSAEncryption.decrypt(words[0], FrmDashboard.privateKey);
                     byte[] decodedKey = Base64.getDecoder().decode(RSADecrypted);
                     byte[] encryptedBytes = Base64.getDecoder().decode(words[1]);
-                    byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
+//                    byte[] AESDecrypted = AESGCMEncryption.decrypt(encryptedBytes, new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES"));
 
                     File file = new File(fileChooser.getSelectedFile().getAbsolutePath() + "\\" + part.getFileName());
                     OutputStream out = new FileOutputStream(file);
-                    IOUtils.write(AESDecrypted, out);
+//                    IOUtils.write(AESDecrypted, out);
                     out.close();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error saving attachment");
