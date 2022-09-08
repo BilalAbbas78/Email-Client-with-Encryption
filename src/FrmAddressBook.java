@@ -1,12 +1,16 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Base64;
 
 public class FrmAddressBook extends JFrame {
-//    static AddressBook addressBook = new AddressBook();
+    //    static AddressBook addressBook = new AddressBook();
     static Contact selfSelectedContact = null;
 
-    FrmAddressBook() {
+    FrmAddressBook() throws SQLException {
 
         setTitle("Address Book");
         setSize(700, 500);
@@ -32,7 +36,7 @@ public class FrmAddressBook extends JFrame {
         tblSelfAddressBook.setModel(model);
         spSelfAddressBook.setViewportView(tblSelfAddressBook);
         add(spSelfAddressBook);
-        setTblSelfAddressBook(model);
+//        setTblSelfAddressBook(model);
 
         JLabel lblAddSelfAddressReceiver = new JLabel("Add Receiver");
         lblAddSelfAddressReceiver.setBounds(10, 290, 200, 30);
@@ -85,6 +89,22 @@ public class FrmAddressBook extends JFrame {
         btnImportOthersAddressBook.setBounds(250, 290, 200, 30);
         add(btnImportOthersAddressBook);
 
+        Statement statement = FrmDashboard.connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM AddressBook WHERE user = '" + FrmLogin.username + "'");
+        if (resultSet.next()) {
+//            System.out.println("Address Book Exists");
+//            System.out.println("hello "+resultSet.getString("contactsList"));
+            String str = resultSet.getString("contactsList");
+            byte[] bytes = Base64.getDecoder().decode(str);
+            selfSelectedContact = Contact.deserialize(bytes);
+        }
+        else {
+            selfSelectedContact = new Contact(FrmLogin.username);
+            Statement statement2 = FrmDashboard.connection.createStatement();
+            statement2.execute("INSERT INTO AddressBook (user, contactsList) VALUES ('" + FrmLogin.username + "', '" + Base64.getEncoder().encodeToString(Contact.serialize(selfSelectedContact)) + "')");
+        }
+
+        setTblSelfAddressBook(model);
 
 
 
@@ -94,8 +114,15 @@ public class FrmAddressBook extends JFrame {
                 JOptionPane.showMessageDialog(null, "Receiver's name is empty");
             }
             else {
-                selfSelectedContact.behalfList.add(txtAddSelfAddressReceiver.getText().trim());
-                setTblSelfAddressBook(model);
+                try {
+                    selfSelectedContact.behalfList.add(txtAddSelfAddressReceiver.getText().trim());
+                    Statement statement2 = FrmDashboard.connection.createStatement();
+                    statement2.execute("UPDATE AddressBook SET contactsList = '" + Base64.getEncoder().encodeToString(Contact.serialize(selfSelectedContact)) + "' WHERE user = '" + FrmLogin.username + "'");
+                    setTblSelfAddressBook(model);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
                 txtAddSelfAddressReceiver.setText("");
             }
         });
@@ -106,6 +133,13 @@ public class FrmAddressBook extends JFrame {
             }
             else {
                 selfSelectedContact.behalfList.remove(tblSelfAddressBook.getSelectedRow());
+                Statement statement2 = null;
+                try {
+                    statement2 = FrmDashboard.connection.createStatement();
+                    statement2.execute("UPDATE AddressBook SET contactsList = '" + Base64.getEncoder().encodeToString(Contact.serialize(selfSelectedContact)) + "' WHERE user = '" + FrmLogin.username + "'");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 setTblSelfAddressBook(model);
             }
         });
@@ -133,19 +167,14 @@ public class FrmAddressBook extends JFrame {
 
     void setTblSelfAddressBook(DefaultTableModel model) {
         model.setRowCount(0);
-        for (Contact contact : GlobalClass.addressBook.contacts) {
-            if (contact.user.equals(FrmLogin.username)) {
-                selfSelectedContact = contact;
-                for (String behalf : contact.behalfList) {
-                    if (!behalf.equals(contact.user)) {
-                        model.addRow(new Object[]{behalf});
-                    }
-                }
+        for (String behalf : selfSelectedContact.behalfList) {
+            if (!behalf.equals(FrmLogin.username)) {
+                model.addRow(new Object[]{behalf});
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new FrmAddressBook().setVisible(true);
     }
 }

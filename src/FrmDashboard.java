@@ -110,7 +110,13 @@ public class FrmDashboard extends JFrame {
 
         ActionListener listenerComposeEmail = e -> new FrmComposeMail().setVisible(true);
 
-        ActionListener listenerAddressBook = e -> new FrmAddressBook().setVisible(true);
+        ActionListener listenerAddressBook = e -> {
+            try {
+                new FrmAddressBook().setVisible(true);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        };
 
         ActionListener listenerImportOwnCertificate = e -> {
             X509Certificate certificate = MyCertificateGenerator.loadCertificateFromFile();

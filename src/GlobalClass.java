@@ -3,9 +3,8 @@ import java.io.FileNotFoundException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Base64;
 
 public class GlobalClass {
     public static Connection connection;
@@ -13,15 +12,8 @@ public class GlobalClass {
     public static String receiver;
     static AddressBook addressBook = new AddressBook();
 
-    public static Connection connect() throws ClassNotFoundException {
+    public static Connection connect() throws ClassNotFoundException, SQLException {
 
-        addressBook.contacts.clear();
-        Contact contact = new Contact("user2@xyz.com");
-        contact.behalfList.add("abc");
-        Contact contact2 = new Contact("user1@xyz.com");
-        contact2.behalfList.add("qwe");
-        addressBook.addContact(contact);
-        addressBook.addContact(contact2);
 
 
         rootCertificate = null;
@@ -35,11 +27,38 @@ public class GlobalClass {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:EmailClient.db");
+            initializeAddressBook();
             return connection;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+
         return null;
+    }
+
+    private static void initializeAddressBook() throws SQLException {
+
+        addressBook.contacts.clear();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM AddressBook");
+        while (resultSet.next()) {
+            addressBook.contacts.add(Contact.deserialize(Base64.getDecoder().decode(resultSet.getString("contactsList"))));
+        }
+        System.out.println("Address Book Initialized");
+        for (Contact contact : addressBook.contacts) {
+            System.out.println(contact.user);
+        }
+
+//
+//        Contact contact = new Contact("user2@xyz.com");
+//        contact.behalfList.add("abc");
+//        Contact contact2 = new Contact("user1@xyz.com");
+//        contact2.behalfList.add("qwe");
+//        addressBook.addContact(contact);
+//        addressBook.addContact(contact2);
+
     }
 
     GlobalClass() {

@@ -9,7 +9,7 @@ public class FrmLogin extends JFrame {
 
     static Connection connection;
 
-    FrmLogin() throws ClassNotFoundException {
+    FrmLogin() throws ClassNotFoundException, SQLException {
         connection = GlobalClass.connect();
         setTitle("Login Form");
         setSize(600, 350);
@@ -67,7 +67,7 @@ public class FrmLogin extends JFrame {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         new FrmLogin().setVisible(true);
     }
 }
