@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="From added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
+      <change afterPath="$PROJECT_DIR$/src/FrmSettings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmAddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmAddressBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +71,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDashboard">
+  <component name="RunManager" selected="Application.FrmSettings">
     <configuration name="FrmAddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmAddressBook" />
       <module name="Email Client with Encryption" />
@@ -93,8 +93,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FrmLogin" />
+    <configuration name="FrmSettings" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FrmSettings" />
       <module name="Email Client with Encryption" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -109,11 +109,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmSettings" />
         <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmAddressBook" />
         <item itemvalue="Application.RSAEncryption" />
-        <item itemvalue="Application.FrmLogin" />
       </list>
     </recent_temporary>
   </component>
@@ -163,6 +163,7 @@
       <workItem from="1662974609636" duration="28000" />
       <workItem from="1662975212877" duration="21000" />
       <workItem from="1662977288056" duration="691000" />
+      <workItem from="1663188316114" duration="787000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -367,7 +368,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662667063683</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="So far so good">
+      <created>1663188378701</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1663188378701</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -406,12 +414,12 @@
     <MESSAGE value="Address Book added" />
     <MESSAGE value="To added in EmailContent" />
     <MESSAGE value="Address Book Form added" />
-    <MESSAGE value="So far so good" />
     <MESSAGE value="RSA OAEP implemented" />
     <MESSAGE value="Address Book linked with DB" />
     <MESSAGE value="AES GCM variable iv" />
     <MESSAGE value="From added" />
-    <option name="LAST_COMMIT_MESSAGE" value="From added" />
+    <MESSAGE value="So far so good" />
+    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

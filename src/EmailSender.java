@@ -24,26 +24,18 @@ public class EmailSender {
     static Properties prop = new Properties();
     static Session session;
 
-    EmailSender() throws Exception {
-    }
-
     void sendEmail() throws Exception {
         setProperties();
         createSession(FrmLogin.username, FrmLogin.password);
         sendMessage(FrmComposeMail.from, FrmComposeMail.to, FrmComposeMail.message, FrmComposeMail.subject);
     }
 
-//    public static void main(String[] args) throws MessagingException {
-//        createSession("account1@bilal.com", "123");
-//        sendMessage("account1@bilal.com", "account2@bilal.com");
-//    }
-
     public static void setProperties() {
         prop.put("mail.smtp.auth", true);
         prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", "localhost");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.ssl.trust", "localhost");
+        prop.put("mail.smtp.host", FrmSettings.ipAddress);
+        prop.put("mail.smtp.port", FrmSettings.smtpPort);
+        prop.put("mail.smtp.ssl.trust", FrmSettings.ipAddress);
     }
 
     public static void createSession(String username, String password) {
@@ -56,9 +48,6 @@ public class EmailSender {
     }
 
     public static void sendMessage(String sender, String receiver, String msg, String subject) throws Exception {
-
-
-
 
         String receiveOnBehalf = receiver;
         receiver = GlobalClass.addressBook.getOthersUser(receiver);
@@ -182,72 +171,4 @@ public class EmailSender {
         messageBodyPart.setFileName(filename);
         multipart.addBodyPart(messageBodyPart);
     }
-
-
-
-
-
-//public static void sendMessage(String sender, String receiver, String msg, String subject) throws MessagingException {
-////        System.out.println(sender);
-//        Message message = new MimeMessage(session);
-//        GlobalClass.receiver = receiver;
-////        System.out.println(session.getProperty("mail.from"));
-//        message.setFrom(new InternetAddress(sender));
-//        message.setRecipients(
-//                Message.RecipientType.TO, InternetAddress.parse(receiver));
-//        message.setSubject(subject);
-//        message.setSentDate(new java.util.Date());
-//
-//
-//
-//        if (!FrmComposeMail.filePath.equals("")){
-//
-//            // Create the message part
-//            BodyPart messageBodyPart = new MimeBodyPart();
-//
-//            // Now set the actual message
-//            messageBodyPart.setText(msg);
-//
-//            // Create a multipart message
-//            Multipart multipart = new MimeMultipart();
-//
-//            // Set text message part
-//            multipart.addBodyPart(messageBodyPart);
-//
-//            // Part two is attachment
-//            messageBodyPart = new MimeBodyPart();
-//            String filePath = FrmComposeMail.filePath;
-//            DataSource source = new FileDataSource(filePath);
-//            messageBodyPart.setDataHandler(new DataHandler(source));
-//            messageBodyPart.setFileName(FrmComposeMail.fileName);
-//            multipart.addBodyPart(messageBodyPart);
-//
-//            // Send the complete message parts
-//            message.setContent(multipart);
-//            FrmComposeMail.filePath = "";
-//            FrmComposeMail.fileName = "";
-//        }
-//        else {
-//            message.setText(msg);
-//        }
-//
-//
-//
-//
-////        String msg = "This is my fourth email using JavaMailer";
-//
-////        message.setText(msg);
-//
-////        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-////        mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-////
-////        Multipart multipart = new MimeMultipart();
-////        multipart.addBodyPart(mimeBodyPart);
-////
-////        message.setContent(multipart);
-////
-//        Transport.send(message);
-//        JOptionPane.showMessageDialog(null, "Message sent successfully");
-//
-//    }
 }
