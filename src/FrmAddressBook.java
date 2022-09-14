@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,7 +85,7 @@ public class FrmAddressBook extends JFrame {
         spOthersBehalf.setViewportView(tblOthersBehalf);
         add(spOthersBehalf);
 
-        setTblOthers(model2, model3);
+        setTblOthers(model2);
 
         JButton btnImportOthersAddressBook = new JButton("Import Others' Address Book");
         btnImportOthersAddressBook.setBounds(250, 290, 200, 30);
@@ -105,6 +107,23 @@ public class FrmAddressBook extends JFrame {
         }
 
         setTblSelfAddressBook(model);
+
+
+        tblOthersReceiver.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                model3.setRowCount(0);
+                String selectedReceiver = tblOthersReceiver.getValueAt(tblOthersReceiver.getSelectedRow(), 0).toString();
+                for (Contact contact : GlobalClass.addressBook.contacts) {
+                    if (contact.user.equals(selectedReceiver)) {
+                        for (String str: contact.behalfList){
+                            model3.addRow(new Object[]{str});
+                        }
+                    }
+                }
+            }
+        });
 
 
 
@@ -149,18 +168,11 @@ public class FrmAddressBook extends JFrame {
 
     }
 
-    private void setTblOthers(DefaultTableModel model2, DefaultTableModel model3) {
+    private void setTblOthers(DefaultTableModel model2) {
         model2.setRowCount(0);
-        model3.setRowCount(0);
         for (Contact contact : GlobalClass.addressBook.contacts) {
             if (!contact.user.equals(FrmLogin.username)) {
                 model2.addRow(new Object[]{contact.user});
-//                selfSelectedContact = contact;
-                for (String behalf : contact.behalfList) {
-                    if (!behalf.equals(contact.user)) {
-                        model3.addRow(new Object[]{behalf});
-                    }
-                }
             }
         }
     }

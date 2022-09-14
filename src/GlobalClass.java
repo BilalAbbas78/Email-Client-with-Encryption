@@ -51,10 +51,10 @@ public class GlobalClass {
             System.out.println(contact.user);
         }
 
-        Contact c = new Contact("user2@xyz.com");
-        c.behalfList.add("ewq");
-        c.behalfList.add("dsa");
-        addressBook.addContact(c);
+//        Contact c = new Contact("user2@xyz.com");
+//        c.behalfList.add("ewq");
+//        c.behalfList.add("dsa");
+//        addressBook.addContact(c);
 
 //
 //        Contact contact = new Contact("user2@xyz.com");
