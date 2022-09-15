@@ -12,13 +12,15 @@ import java.util.Properties;
 
 class Inbox {
     String from, date, subject, part;
+    Message message;
     ArrayList<MimeBodyPart> parts;
-    Inbox(String from, String date, String subject, String part, ArrayList<MimeBodyPart> parts) {
+    Inbox(String from, String date, String subject, String part, ArrayList<MimeBodyPart> parts, Message message) {
         this.from = from;
         this.date = date;
         this.subject = subject;
         this.part = part;
         this.parts = parts;
+        this.message = message;
     }
 }
 
@@ -168,7 +170,7 @@ public class EmailReceiver {
 //                statement1.executeUpdate("INSERT INTO Emails VALUES ('" + FrmLogin.username + "', '" + sender + "', '" + sentDate + "', '" + subject + "', '" + theString + "')");
 //                statement1.close();
 
-                inboxList.add(new Inbox(sender, sentDate, subject, theString, parts));
+                inboxList.add(new Inbox(sender, sentDate, subject, theString, parts, message));
 
 
 //                System.out.println(sender + " " + sentDate + " " + subject);

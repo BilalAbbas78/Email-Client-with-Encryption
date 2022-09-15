@@ -1,15 +1,4 @@
-import javax.activation.DataHandler;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -154,7 +143,7 @@ public class FrmComposeMail extends JFrame {
                     try {
                         new EmailSender().sendEmail();
                         attachments.clear();
-                        FrmDashboard.setTblInbox(FrmDashboard.model);
+                        FrmDashboard.setTblInbox(FrmDashboard.mdlInbox);
                         setVisible(false);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Message can't send");

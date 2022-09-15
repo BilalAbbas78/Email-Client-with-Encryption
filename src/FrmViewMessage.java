@@ -1,13 +1,11 @@
 import org.apache.commons.io.IOUtils;
 
-import javax.crypto.spec.SecretKeySpec;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.security.Signature;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -101,6 +99,17 @@ public class FrmViewMessage extends JFrame {
         txtMessage.setText(message);
         FrmViewMessage.parts = parts;
 
+        JButton btnDelete = new JButton("Delete");
+        btnDelete.setBounds(470, 10, 100, 30);
+        add(btnDelete);
+
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    FrmDashboard.deleteSelectedMessage();
+                    dispose();
+            }
+        });
 
         final int numberOfButtons=parts.size();
         JPanel panel = new JPanel();

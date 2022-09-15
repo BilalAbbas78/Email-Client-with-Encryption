@@ -1,4 +1,6 @@
 import javax.crypto.spec.SecretKeySpec;
+import javax.mail.Flags;
+import javax.mail.MessagingException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
@@ -21,9 +23,10 @@ public class FrmDashboard extends JFrame {
 
     public static JTabbedPane jtp;
     static Connection connection;
-    static DefaultTableModel model;
+    static DefaultTableModel mdlInbox, mdlSent;
     static Inbox selectedInbox;
     static PrivateKey privateKey = null;
+    static JTable tblInbox;
 
     FrmDashboard() throws ClassNotFoundException, SQLException {
 //        FrmLogin.connection.close();
@@ -255,21 +258,41 @@ public class FrmDashboard extends JFrame {
 
     }
 
+    public static void deleteSelectedMessage() {
+
+        int row = tblInbox.getSelectedRow();
+
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure want to delete this email?","Delete", JOptionPane.YES_NO_OPTION);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            try {
+                EmailReceiver.inboxList.get(row).message.setFlag(Flags.Flag.DELETED, true);
+                EmailReceiver.inboxList.remove(row);
+                mdlInbox.removeRow(row);
+                JOptionPane.showMessageDialog(null, "Message Deleted successfully");
+            } catch (MessagingException ex) {
+                JOptionPane.showMessageDialog(null, "Message can't be deleted");
+                ex.printStackTrace();
+            }
+        }
+
+
+    }
+
     JPanel inboxPanel() throws SQLException {
         JPanel pnlInbox = new JPanel();
         pnlInbox.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(0, 0, 1300, 820);
-        model = new DefaultTableModel(
+        mdlInbox = new DefaultTableModel(
                 new String [] {
                         "Subject", "From", "Date",
                 }, 0);
 
-        JTable tblInbox = new JTable();
+        tblInbox = new JTable();
         scrollPane.setViewportView(tblInbox);
-        setTblInbox(model);
-        tblInbox.setModel(model);
+        setTblInbox(mdlInbox);
+        tblInbox.setModel(mdlInbox);
         pnlInbox.add(scrollPane);
 
         tblInbox.addMouseListener(new MouseAdapter() {
@@ -366,15 +389,15 @@ public class FrmDashboard extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(0, 0, 1300, 820);
-        model = new DefaultTableModel(
+        mdlSent = new DefaultTableModel(
                 new String [] {
                         "Subject", "To", "Date",
                 }, 0);
 
         JTable tblSent = new JTable();
         scrollPane.setViewportView(tblSent);
-        setTblSent(model);
-        tblSent.setModel(model);
+        setTblSent(mdlSent);
+        tblSent.setModel(mdlSent);
         pnlSent.add(scrollPane);
 
         tblSent.addMouseListener(new MouseAdapter() {
