@@ -56,7 +56,7 @@ public class FrmLogin extends JFrame {
         FrmDashboard.connection = GlobalClass.connect();
         FrmLogin.username = username;
         FrmLogin.password = password;
-        EmailReceiver.downloadEmails("imap", "localhost", "143", username, password);
+        EmailReceiver.downloadEmails("imap", FrmSettings.ipAddress, FrmSettings.imapPort, username, password);
         if (isValid) {
 //            JOptionPane.showMessageDialog(null, "Login Successful");
             new FrmDashboard().setVisible(true);

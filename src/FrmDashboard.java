@@ -393,7 +393,7 @@ public class FrmDashboard extends JFrame {
     private void setTblSent(DefaultTableModel model) throws SQLException {
         model.setRowCount(0);
         EmailReceiver.sentList.clear();
-        EmailReceiver.downloadEmails("imap", "localhost", "143", FrmLogin.username, FrmLogin.password);
+        EmailReceiver.downloadEmails("imap", FrmSettings.ipAddress, FrmSettings.imapPort, FrmLogin.username, FrmLogin.password);
         for (Sent sent : EmailReceiver.sentList) {
             model.addRow(new Object[]{sent.subject, sent.to, sent.date});
         }
@@ -402,7 +402,7 @@ public class FrmDashboard extends JFrame {
     static void setTblInbox(DefaultTableModel model) throws SQLException {
         model.setRowCount(0);
         EmailReceiver.inboxList.clear();
-        EmailReceiver.downloadEmails("imap", "localhost", "143", FrmLogin.username, FrmLogin.password);
+        EmailReceiver.downloadEmails("imap", FrmSettings.ipAddress, FrmSettings.imapPort, FrmLogin.username, FrmLogin.password);
         for (Inbox inbox : EmailReceiver.inboxList) {
             model.addRow(new Object[]{inbox.subject, inbox.from, inbox.date});
         }

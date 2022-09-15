@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
-      <change afterPath="$PROJECT_DIR$/src/FrmSettings.java" afterDir="false" />
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="FrmSettings added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +71,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmSettings">
+  <component name="RunManager" selected="Application.FrmDashboard">
     <configuration name="FrmAddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmAddressBook" />
       <module name="Email Client with Encryption" />
@@ -109,8 +109,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmSettings" />
         <item itemvalue="Application.FrmDashboard" />
+        <item itemvalue="Application.FrmSettings" />
         <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmAddressBook" />
         <item itemvalue="Application.RSAEncryption" />
@@ -163,7 +163,8 @@
       <workItem from="1662974609636" duration="28000" />
       <workItem from="1662975212877" duration="21000" />
       <workItem from="1662977288056" duration="691000" />
-      <workItem from="1663188316114" duration="787000" />
+      <workItem from="1663188316114" duration="1105000" />
+      <workItem from="1663236972646" duration="562000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -375,7 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663188378701</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="FrmSettings added">
+      <created>1663189271272</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1663189271272</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +402,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Email Content class added for Serialization" />
     <MESSAGE value="Serialization applied" />
     <MESSAGE value="Client Certificate Form added" />
     <MESSAGE value="AES with Hash added" />
@@ -419,7 +426,8 @@
     <MESSAGE value="AES GCM variable iv" />
     <MESSAGE value="From added" />
     <MESSAGE value="So far so good" />
-    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
+    <MESSAGE value="FrmSettings added" />
+    <option name="LAST_COMMIT_MESSAGE" value="FrmSettings added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,8 +1,7 @@
 import javax.swing.*;
 
 public class FrmSettings extends JFrame {
-    public static String ipAddress = "localhost";
-    public static String smtpPort = "587";
+    public static String ipAddress = "localhost", smtpPort = "587", imapPort = "143";
     FrmSettings(){
         setSize(600, 350);
         setLocationRelativeTo(null);
@@ -27,16 +26,26 @@ public class FrmSettings extends JFrame {
         txtSmtpPort.setBounds(150, 100, 200, 30);
         add(txtSmtpPort);
 
+        JLabel lblImapPort = new JLabel("IMAP Port");
+        lblImapPort.setBounds(50, 150, 100, 30);
+        add(lblImapPort);
+
+        JTextField txtImapPort = new JTextField();
+        txtImapPort.setBounds(150, 150, 200, 30);
+        add(txtImapPort);
+
         JButton btnSave = new JButton("Save");
-        btnSave.setBounds(150, 150, 100, 30);
+        btnSave.setBounds(150, 200, 100, 30);
         add(btnSave);
 
         txtIpAddress.setText(ipAddress);
         txtSmtpPort.setText(smtpPort);
+        txtImapPort.setText(imapPort);
 
         btnSave.addActionListener(e -> {
             ipAddress = txtIpAddress.getText();
             smtpPort = txtSmtpPort.getText();
+            imapPort = txtImapPort.getText();
             dispose();
         });
 
