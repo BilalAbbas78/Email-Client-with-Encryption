@@ -8,17 +8,18 @@ public class AddressBook {
         contacts.add(contact);
     }
 
-    String getOthersUser(String fromBehalf) {
+    ArrayList<String> getOthersUser(String fromBehalf) {
+        ArrayList<String> others = new ArrayList<>();
         for (Contact contact : contacts) {
             if (!contact.user.equals(FrmLogin.username)) {
                 for (String behalf : contact.behalfList) {
                     if (behalf.equals(fromBehalf)) {
-                        return contact.user;
+                        others.add(contact.user);
                     }
                 }
             }
         }
-        return null;
+        return others;
     }
 
     String getSelfUser(String fromBehalf) {

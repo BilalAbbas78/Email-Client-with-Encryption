@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.FocusEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,6 +24,7 @@ public class FrmComposeMail extends JFrame {
     private JTextField txtSubject;
     private JLabel lblSubject;
     private JButton btnSelectAttachment;
+    public static JTextArea txtRecipientsList;
 
     public static ArrayList<Attachment> attachments = new ArrayList<>();
 
@@ -59,29 +61,48 @@ public class FrmComposeMail extends JFrame {
         lblTo.setBounds(10, 50, 100, 30);
         add(lblTo);
 
+        JLabel lblRecipientsList = new JLabel("Recipients List");
+        lblRecipientsList.setBounds(10, 90, 100, 30);
+        add(lblRecipientsList);
+
+        txtRecipientsList = new JTextArea();
+        JScrollPane spRecipientsList = new JScrollPane(txtRecipientsList);
+        spRecipientsList.setBounds(110, 90, 200, 30);
+        spRecipientsList.setViewportView(txtRecipientsList);
+        add(spRecipientsList);
+
+
         txtTo.setBounds(110, 50, 200, 30);
         add(txtTo);
 
-        lblSubject.setBounds(10, 90, 100, 30);
+        lblSubject.setBounds(10, 130, 100, 30);
         add(lblSubject);
 
-        txtSubject.setBounds(110, 90, 200, 30);
+        txtSubject.setBounds(110, 130, 200, 30);
         add(txtSubject);
 
-        lblMessage.setBounds(10, 130, 100, 30);
+        lblMessage.setBounds(10, 170, 100, 30);
         add(lblMessage);
 
-        txtMessage.setBounds(110, 130, 200, 200);
+        txtMessage.setBounds(110, 170, 200, 200);
         add(txtMessage);
 
-        btnSelectAttachment.setBounds(110, 340, 200, 30);
+        btnSelectAttachment.setBounds(110, 380, 200, 30);
         add(btnSelectAttachment);
 
-        btnSend.setBounds(110, 380, 100, 30);
+        btnSend.setBounds(110, 420, 100, 30);
         add(btnSend);
 
-        btnExit.setBounds(220, 380, 100, 30);
+        btnExit.setBounds(220, 420, 100, 30);
         add(btnExit);
+
+        txtSubject.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                txtRecipientsList.setText("");
+                txtRecipientsList.setText(GlobalClass.addressBook.getOthersUser(txtTo.getText()));
+            }
+        });
 
         btnSelectAttachment.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
