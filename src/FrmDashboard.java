@@ -28,7 +28,7 @@ public class FrmDashboard extends JFrame {
     static PrivateKey privateKey = null;
     static JTable tblInbox;
 
-    FrmDashboard() throws ClassNotFoundException, SQLException {
+    FrmDashboard() throws ClassNotFoundException, SQLException, MessagingException {
 //        FrmLogin.connection.close();
 
         connection = GlobalClass.connect();
@@ -278,7 +278,7 @@ public class FrmDashboard extends JFrame {
 
     }
 
-    JPanel inboxPanel() throws SQLException {
+    JPanel inboxPanel() throws SQLException, MessagingException {
         JPanel pnlInbox = new JPanel();
         pnlInbox.setLayout(null);
 
@@ -383,7 +383,7 @@ public class FrmDashboard extends JFrame {
         return pnlInbox;
     }
 
-    JPanel sentPanel() throws SQLException {
+    JPanel sentPanel() throws SQLException, MessagingException {
         JPanel pnlSent = new JPanel();
         pnlSent.setLayout(null);
 
@@ -413,7 +413,7 @@ public class FrmDashboard extends JFrame {
         return pnlSent;
     }
 
-    private void setTblSent(DefaultTableModel model) throws SQLException {
+    private void setTblSent(DefaultTableModel model) throws SQLException, MessagingException {
         model.setRowCount(0);
         EmailReceiver.sentList.clear();
         EmailReceiver.downloadEmails("imap", FrmSettings.ipAddress, FrmSettings.imapPort, FrmLogin.username, FrmLogin.password);
@@ -422,7 +422,7 @@ public class FrmDashboard extends JFrame {
         }
     }
 
-    static void setTblInbox(DefaultTableModel model) throws SQLException {
+    static void setTblInbox(DefaultTableModel model) throws SQLException, MessagingException {
         model.setRowCount(0);
         EmailReceiver.inboxList.clear();
         EmailReceiver.downloadEmails("imap", FrmSettings.ipAddress, FrmSettings.imapPort, FrmLogin.username, FrmLogin.password);
@@ -466,7 +466,7 @@ public class FrmDashboard extends JFrame {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, MessagingException {
 //        new FrmLogin();
         new FrmDashboard().setVisible(true);
     }

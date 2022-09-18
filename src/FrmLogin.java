@@ -1,3 +1,4 @@
+import javax.mail.MessagingException;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
@@ -48,11 +49,13 @@ public class FrmLogin extends JFrame {
                 login(txtUsername.getText(), txtPassword.getText());
             } catch (ClassNotFoundException | SQLException ex) {
                 throw new RuntimeException(ex);
+            } catch (MessagingException ex) {
+                throw new RuntimeException(ex);
             }
         });
     }
 
-    private void login(String username, String password) throws ClassNotFoundException, SQLException {
+    private void login(String username, String password) throws ClassNotFoundException, SQLException, MessagingException {
         FrmDashboard.connection = GlobalClass.connect();
         FrmLogin.username = username;
         FrmLogin.password = password;

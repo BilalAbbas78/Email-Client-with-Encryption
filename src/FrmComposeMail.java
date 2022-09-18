@@ -100,7 +100,12 @@ public class FrmComposeMail extends JFrame {
             @Override
             public void focusGained(FocusEvent e) {
                 txtRecipientsList.setText("");
-                txtRecipientsList.setText(GlobalClass.addressBook.getOthersUser(txtTo.getText()));
+                for (String recipient : GlobalClass.addressBook.getOthersUser(txtTo.getText())) {
+                    txtRecipientsList.append(recipient);
+                    if (GlobalClass.addressBook.getOthersUser(txtTo.getText()).indexOf(recipient) != GlobalClass.addressBook.getOthersUser(txtTo.getText()).size() - 1) {
+                        txtRecipientsList.append("\n");
+                    }
+                }
             }
         });
 

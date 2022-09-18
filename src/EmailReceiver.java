@@ -67,7 +67,7 @@ public class EmailReceiver {
     }
 
     public static void downloadEmails(String protocol, String host, String port,
-                                      String userName, String password) throws SQLException {
+                                      String userName, String password) throws SQLException, MessagingException {
         Properties properties = getServerProperties(protocol, host, port);
         Session session = Session.getDefaultInstance(properties);
 
@@ -83,25 +83,28 @@ public class EmailReceiver {
             folderInbox.open(Folder.READ_WRITE);
             folderInbox.expunge();
 
+            // search for all "unseen" messages
+//            Flags seen = new Flags(Flags.Flag.SEEN);
+//            FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
+
+            // fetches new messages from server
+            Message[] messagesInbox = folderInbox.getMessages();
+//            Message[] messagesInbox = folderInbox.search(unseenFlagTerm);
+            inboxList.clear();
+
             folderSent = store.getFolder("Sent");
             folderSent.open(Folder.READ_WRITE);
             folderSent.expunge();
-
-            // search for all "unseen" messages
-            Flags seen = new Flags(Flags.Flag.SEEN);
-            FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
-
-            // fetches new messages from server
-             Message[] messagesInbox = folderInbox.getMessages();
-//            Message[] messagesInbox = folderInbox.search(unseenFlagTerm);
             Message[] messagesSent = folderSent.getMessages();
-            inboxList.clear();
-
             for (Message message: messagesSent){
                 System.out.println("Sent: " + message.getSubject());
                 sentList.clear();
                 sentList.add(new Sent(message.getRecipients(Message.RecipientType.TO)[0].toString(), message.getSentDate().toString(), message.getSubject(), ""));
             }
+
+
+
+
 
             for (Message message : messagesInbox) {
                 ArrayList<MimeBodyPart> parts = new ArrayList<>();
@@ -183,18 +186,26 @@ public class EmailReceiver {
             FrmLogin.isValid = false;
             JOptionPane.showMessageDialog(null, "Enter valid username and password", "Invalid Credentials", JOptionPane.ERROR_MESSAGE);
 //            System.out.println("Could not connect to the message store");
-//            ex.printStackTrace();
+            ex.printStackTrace();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
         finally {
+
+        }
+//        finally {
 //            Statement statement1 = FrmDashboard.connection.createStatement();
 //            ResultSet resultSet = statement1.executeQuery("SELECT * FROM Emails WHERE clientName = '" + FrmLogin.username + "'");
 //            while (resultSet.next()) {
 //                inboxList.add(new Inbox(resultSet.getString("senderName"), resultSet.getString("sentDate"), resultSet.getString("subject"), resultSet.getString("body")));
 //            }
-        }
+//        }
+
+
+//        folderInbox.close(true);
+//        folderSent.close(true);
+        store.close();
     }
 
     /**

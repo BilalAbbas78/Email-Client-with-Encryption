@@ -118,7 +118,9 @@ public class FrmAddressBook extends JFrame {
                 for (Contact contact : GlobalClass.addressBook.contacts) {
                     if (contact.user.equals(selectedReceiver)) {
                         for (String str: contact.behalfList){
-                            model3.addRow(new Object[]{str});
+                            if (!str.equals(contact.user)) {
+                                model3.addRow(new Object[]{str});
+                            }
                         }
                     }
                 }
