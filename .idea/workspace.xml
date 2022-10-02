@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmAddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmAddressBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +168,7 @@
       <workItem from="1663270420666" duration="3000000" />
       <workItem from="1663521465223" duration="1958000" />
       <workItem from="1663523569492" duration="1580000" />
-      <workItem from="1664706127252" duration="721000" />
+      <workItem from="1664706127252" duration="2629000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -413,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663524122486</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="So far so good">
+      <created>1664708697326</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1664708697326</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -44,6 +44,12 @@ public class FrmLogin extends JFrame {
         btnLogin.setBounds(250, 200, 100, 30);
         add(btnLogin);
 
+        JButton btnSettings = new JButton("Settings");
+        btnSettings.setBounds(450, 10, 100, 30);
+        add(btnSettings);
+
+        btnSettings.addActionListener(e -> new FrmSettings().setVisible(true));
+
         btnLogin.addActionListener(e -> {
             try {
                 login(txtUsername.getText(), txtPassword.getText());

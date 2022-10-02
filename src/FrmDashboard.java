@@ -52,7 +52,7 @@ public class FrmDashboard extends JFrame {
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
         tabbedPane.addTab ("test", null);
-        tabbedPane.addTab ("test", null);
+//        tabbedPane.addTab ("test", null);
         tabbedPane.addTab("Inbox", null, inboxPanel(), "Inbox");
         tabbedPane.addTab("Sent", null, sentPanel(), "Sent");
 //        FlowLayout f = new FlowLayout (FlowLayout.CENTER, 5, 0);
@@ -112,16 +112,16 @@ public class FrmDashboard extends JFrame {
         pnlAddressBook.add (btnAddressBook);
         tabbedPane.setTabComponentAt (4, pnlAddressBook);
 
-        JPanel pnlSettings = new JPanel ();
-        pnlSettings.setOpaque (false);
-        JButton btnSettings = new JButton ("Settings");
-        btnSettings.setOpaque (false); //
-        btnSettings.setBorder (null);
-        btnSettings.setContentAreaFilled (false);
-        btnSettings.setFocusPainted (false);
-        btnSettings.setFocusable (false);
-        pnlSettings.add (btnSettings);
-        tabbedPane.setTabComponentAt (5, pnlSettings);
+//        JPanel pnlSettings = new JPanel ();
+//        pnlSettings.setOpaque (false);
+//        JButton btnSettings = new JButton ("Settings");
+//        btnSettings.setOpaque (false); //
+//        btnSettings.setBorder (null);
+//        btnSettings.setContentAreaFilled (false);
+//        btnSettings.setFocusPainted (false);
+//        btnSettings.setFocusable (false);
+//        pnlSettings.add (btnSettings);
+//        tabbedPane.setTabComponentAt (5, pnlSettings);
 
         ActionListener listenerComposeEmail = e -> new FrmComposeMail().setVisible(true);
 
@@ -237,18 +237,18 @@ public class FrmDashboard extends JFrame {
             }
         };
 
-        ActionListener listenerSettings = e -> {
-                new FrmSettings().setVisible(true);
-        };
+//        ActionListener listenerSettings = e -> {
+//                new FrmSettings().setVisible(true);
+//        };
 
         btnComposeEmail.addActionListener (listenerComposeEmail);
         btnImportOwnCertificate.addActionListener (listenerImportOwnCertificate);
         btnImportOwnPrivateKey.addActionListener (listenerImportOwnPrivateKey);
         btnManageClientCertificates.addActionListener (listenerManageClientCertificates);
         btnAddressBook.addActionListener (listenerAddressBook);
-        btnSettings.addActionListener (listenerSettings);
+//        btnSettings.addActionListener (listenerSettings);
 
-        tabbedPane.setSelectedIndex(6);
+        tabbedPane.setSelectedIndex(5);
 
 
 
