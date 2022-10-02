@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Multiple Receivers added">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="So far so good">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmAddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmAddressBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +69,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDashboard">
+  <component name="RunManager" selected="Application.FrmLogin">
     <configuration name="FrmAddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmAddressBook" />
       <module name="Email Client with Encryption" />
@@ -112,8 +107,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.FrmLogin" />
+        <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.FrmSettings" />
         <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmAddressBook" />
@@ -170,7 +165,8 @@
       <workItem from="1663236972646" duration="562000" />
       <workItem from="1663270420666" duration="3000000" />
       <workItem from="1663521465223" duration="1958000" />
-      <workItem from="1663523569492" duration="338000" />
+      <workItem from="1663523569492" duration="1580000" />
+      <workItem from="1664706127252" duration="721000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -410,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663273418827</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="So far so good">
+      <created>1663524122486</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1663524122486</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,12 +452,12 @@
     <MESSAGE value="Address Book linked with DB" />
     <MESSAGE value="AES GCM variable iv" />
     <MESSAGE value="From added" />
-    <MESSAGE value="So far so good" />
     <MESSAGE value="FrmSettings added" />
     <MESSAGE value="IP, Ports settings added" />
     <MESSAGE value="Delete message added in Inbox" />
     <MESSAGE value="Multiple Receivers added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Multiple Receivers added" />
+    <MESSAGE value="So far so good" />
+    <option name="LAST_COMMIT_MESSAGE" value="So far so good" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,8 +1,14 @@
+import javax.mail.MessagingException;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -165,6 +171,28 @@ public class FrmAddressBook extends JFrame {
             }
         });
 
+        btnExportSelfAddressReceiver.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Specify a place to save the file");
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Address Book", "ab"));
+            fileChooser.setSelectedFile(new File(FrmLogin.username + ".ab"));
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(fileToSave);
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                    objectOutputStream.writeObject(selfSelectedContact);
+                    objectOutputStream.close();
+                    fileOutputStream.close();
+                    JOptionPane.showMessageDialog(null, "Address Book Exported Successfully");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
 
 
 
@@ -188,7 +216,8 @@ public class FrmAddressBook extends JFrame {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, MessagingException, ClassNotFoundException {
+        new FrmDashboard();
         new FrmAddressBook().setVisible(true);
     }
 }
