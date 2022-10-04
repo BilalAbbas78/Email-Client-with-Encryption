@@ -36,6 +36,16 @@ public class FrmSelectTo extends JFrame {
         JButton btnSelect = new JButton("Select");
         btnSelect.setBounds(250, 320, 100, 30);
         add(btnSelect);
+
+        btnSelect.addActionListener(e -> {
+            FrmComposeMail.txtTo.setText("");
+            for (int i = 0; i < tblToModel.getRowCount(); i++) {
+                if (tblToModel.getValueAt(i, 0).equals(true)) {
+                    FrmComposeMail.txtTo.setText(FrmComposeMail.txtTo.getText() + tblToModel.getValueAt(i, 1) + "; ");
+                }
+            }
+            setVisible(false);
+        });
     }
 
     void setTblTo(DefaultTableModel tblToModel) {

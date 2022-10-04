@@ -32,6 +32,8 @@ public class FrmDashboard extends JFrame {
 //        FrmLogin.connection.close();
 
         connection = GlobalClass.connect();
+        new FrmAddressBook();
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

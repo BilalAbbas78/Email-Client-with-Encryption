@@ -37,6 +37,16 @@ public class FrmSelectFrom extends JFrame {
         btnSelect.setBounds(250, 320, 100, 30);
         add(btnSelect);
 
+        btnSelect.addActionListener(e -> {
+            FrmComposeMail.txtFrom.setText("");
+            for (int i = 0; i < tblFromModel.getRowCount(); i++) {
+                if (tblFromModel.getValueAt(i, 0).equals(true)) {
+                    FrmComposeMail.txtFrom.setText(FrmComposeMail.txtFrom.getText() + tblFromModel.getValueAt(i, 1) + "; ");
+                }
+            }
+            setVisible(false);
+        });
+
     }
 
     void setTblFrom(DefaultTableModel tblFromModel) {
@@ -51,7 +61,6 @@ public class FrmSelectFrom extends JFrame {
     public static void main(String[] args) throws SQLException, ClassNotFoundException, MessagingException {
         GlobalClass.connect();
         new FrmDashboard();
-        new FrmAddressBook();
         new FrmSelectFrom().setVisible(true);
     }
 }

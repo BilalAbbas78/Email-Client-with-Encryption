@@ -1,3 +1,4 @@
+import javax.mail.MessagingException;
 import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.sql.ResultSet;
@@ -15,7 +16,8 @@ class Attachment {
 
 public class FrmComposeMail extends JFrame {
     private JPanel myPanel;
-    private JTextField txtTo, txtFrom;
+    public static JTextField txtTo;
+    public static JTextField txtFrom;
     private JLabel lblTo, lblFrom;
     private JLabel lblMessage;
     private JTextArea txtMessage;
@@ -34,7 +36,7 @@ public class FrmComposeMail extends JFrame {
 
     FrmComposeMail() {
         setTitle("Compose Mail");
-        setSize(400, 500);
+        setSize(450, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 //        setContentPane(myPanel);
@@ -96,6 +98,22 @@ public class FrmComposeMail extends JFrame {
         btnExit.setBounds(220, 420, 100, 30);
         add(btnExit);
 
+        JButton btnSelectFrom = new JButton("Select From");
+        btnSelectFrom.setBounds(320, 10, 110, 30);
+        add(btnSelectFrom);
+
+        JButton btnSelectTo = new JButton("Select To");
+        btnSelectTo.setBounds(320, 50, 110, 30);
+        add(btnSelectTo);
+
+        btnSelectFrom.addActionListener(e -> {
+            new FrmSelectFrom().setVisible(true);
+        });
+
+        btnSelectTo.addActionListener(e -> {
+            new FrmSelectTo().setVisible(true);
+        });
+
         txtSubject.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -119,33 +137,6 @@ public class FrmComposeMail extends JFrame {
 
                 attachments.add(new Attachment(fileName, filePath));
             }
-
-
-//            File file = fileChooser.getSelectedFile();
-//            filePath = file.getAbsolutePath();
-//            fileName = file.getName();
-
-            //                // Create the message part
-//                BodyPart messageBodyPart = new MimeBodyPart();
-//                // Now set the actual message
-//                messageBodyPart.setText("");
-//                // Create a multipart message
-//            Multipart multipart = new MimeMultipart();
-//                // Set text message part
-//                multipart.addBodyPart(messageBodyPart);
-            // Part two is attachment
-//                messageBodyPart = new MimeBodyPart();
-//                byte[] bytes = Files.readAllBytes(Paths.get(filePath));
-//                messageBodyPart.setDataHandler(new DataHandler(bytes, "application/octet-stream"));
-//                messageBodyPart.setFileName(fileName);
-//                multipart.addBodyPart(messageBodyPart);
-
-//            Attachment attachment = new Attachment(multipart, filePath);
-//            attachments.add(attachment);
-//
-//            System.out.println(multipart);
-//            filepath = file.
-//            txtMessage.append("\nAttachment: " + file.getName());
         });
 
         btnSend.addActionListener(e -> {
@@ -193,7 +184,9 @@ public class FrmComposeMail extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, MessagingException {
+        GlobalClass.connect();
+        new FrmDashboard();
         new FrmComposeMail().setVisible(true);
     }
 }

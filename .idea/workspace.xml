@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Frm Select From &amp; To added">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmComposeMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmComposeMail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FrmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FrmSelectFrom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmSelectFrom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmSelectTo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmSelectTo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +70,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.FrmComposeMail">
     <configuration name="FrmAddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmAddressBook" />
       <module name="Email Client with Encryption" />
@@ -107,11 +108,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmComposeMail" />
         <item itemvalue="Application.FrmDashboard" />
         <item itemvalue="Application.FrmLogin" />
         <item itemvalue="Application.FrmAddressBook" />
         <item itemvalue="Application.FrmSettings" />
-        <item itemvalue="Application.FrmComposeMail" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +174,7 @@
       <workItem from="1664829684940" duration="1199000" />
       <workItem from="1664868112145" duration="864000" />
       <workItem from="1664916390130" duration="92000" />
-      <workItem from="1664916536880" duration="2131000" />
+      <workItem from="1664916536880" duration="3223000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -448,7 +449,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664918566620</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Frm Select From &amp; To added">
+      <created>1664918811004</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1664918811004</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
