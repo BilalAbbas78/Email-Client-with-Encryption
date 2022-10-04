@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Settings removed from Dashboard and added to Log in Screen">
+    <list default="true" id="8a8d9776-4419-4f84-b8ef-0084ec47cec3" name="Changes" comment="Import Others Address Book added">
+      <change afterPath="$PROJECT_DIR$/src/FrmSelectFrom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FrmSelectTo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailClient.db" beforeDir="false" afterPath="$PROJECT_DIR$/EmailClient.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EmailReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmAddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmAddressBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FrmLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrmLogin.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDashboard">
+  <component name="RunManager">
     <configuration name="FrmAddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FrmAddressBook" />
       <module name="Email Client with Encryption" />
@@ -174,7 +172,9 @@
       <workItem from="1664783841579" duration="118000" />
       <workItem from="1664829509142" duration="62000" />
       <workItem from="1664829684940" duration="1199000" />
-      <workItem from="1664868112145" duration="709000" />
+      <workItem from="1664868112145" duration="864000" />
+      <workItem from="1664916390130" duration="92000" />
+      <workItem from="1664916536880" duration="1819000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1661610313655</created>
@@ -435,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664714574322</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Import Others Address Book added">
+      <created>1664916263670</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1664916263670</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,7 +463,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="View Message Form added" />
     <MESSAGE value="View Message with Encryption added" />
     <MESSAGE value="Emails inserted in Database" />
     <MESSAGE value="Retreive unread only messages from Server" />
@@ -481,7 +487,8 @@
     <MESSAGE value="Multiple Receivers added" />
     <MESSAGE value="So far so good" />
     <MESSAGE value="Settings removed from Dashboard and added to Log in Screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Settings removed from Dashboard and added to Log in Screen" />
+    <MESSAGE value="Import Others Address Book added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Import Others Address Book added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
