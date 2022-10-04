@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class FrmLogin extends JFrame {
     public static boolean isValid = false;
-    public static String username = "user2@xyz.com", password = "234";
+    public static String username = "user1@xyz.com", password = "123";
 
 
     static Connection connection;

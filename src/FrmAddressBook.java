@@ -5,16 +5,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
 
-public class FrmAddressBook extends JFrame {
+public class FrmAddressBook extends JDialog {
     //    static AddressBook addressBook = new AddressBook();
     static Contact selfSelectedContact = null;
 
@@ -189,6 +186,38 @@ public class FrmAddressBook extends JFrame {
                     JOptionPane.showMessageDialog(null, "Address Book Exported Successfully");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        btnImportOthersAddressBook.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Specify a file to import");
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Address Book", "ab"));
+            int userSelection = fileChooser.showOpenDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToOpen = fileChooser.getSelectedFile();
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(fileToOpen);
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                    Contact contact = (Contact) objectInputStream.readObject();
+                    objectInputStream.close();
+                    fileInputStream.close();
+                    if (contact.user.equals(FrmLogin.username)) {
+                        JOptionPane.showMessageDialog(null, "You cannot import your own address book");
+                    }
+                    else {
+//                            GlobalClass.addressBook.contacts.add(contact);
+//                            Statement statement2 = FrmDashboard.connection.createStatement();
+//                            statement2.execute("UPDATE AddressBook SET contactsList = '" + Base64.getEncoder().encodeToString(Contact.serialize(GlobalClass.addressBook)) + "' WHERE user = '" + FrmLogin.username + "'");
+//                            setTblOthers(model2);
+//                            JOptionPane.showMessageDialog(null, "Address Book Imported Successfully");
+                    }
+                } catch (IOException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+//                } catch (SQLException ex) {
+//                    throw new RuntimeException(ex);
                 }
             }
         });

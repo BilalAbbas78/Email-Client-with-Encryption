@@ -92,15 +92,15 @@ public class EmailReceiver {
 //            Message[] messagesInbox = folderInbox.search(unseenFlagTerm);
             inboxList.clear();
 
-            folderSent = store.getFolder("Sent");
-            folderSent.open(Folder.READ_WRITE);
-            folderSent.expunge();
-            Message[] messagesSent = folderSent.getMessages();
-            for (Message message: messagesSent){
-                System.out.println("Sent: " + message.getSubject());
-                sentList.clear();
-                sentList.add(new Sent(message.getRecipients(Message.RecipientType.TO)[0].toString(), message.getSentDate().toString(), message.getSubject(), ""));
-            }
+//            folderSent = store.getFolder("Sent");
+//            folderSent.open(Folder.READ_WRITE);
+//            folderSent.expunge();
+//            Message[] messagesSent = folderSent.getMessages();
+//            for (Message message: messagesSent){
+//                System.out.println("Sent: " + message.getSubject());
+//                sentList.clear();
+//                sentList.add(new Sent(message.getRecipients(Message.RecipientType.TO)[0].toString(), message.getSentDate().toString(), message.getSubject(), ""));
+//            }
 
 
 
