@@ -67,6 +67,7 @@ public class EmailSender {
 
 
         for (String myReceiver: receivers) {
+            System.out.println("Receiver: " + myReceiver);
             receiver = myReceiver;
             Message message = new MimeMessage(session);
 //        GlobalClass.receiver = receiver;
